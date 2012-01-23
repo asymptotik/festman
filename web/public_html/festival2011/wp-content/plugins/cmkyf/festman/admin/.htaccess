@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "fest admin"
+AuthUserFile "/home/communik/.htpasswds/public_html/festival2011/wp-content/plugins/cmkyf/festman/admin/passwd"
+require valid-user

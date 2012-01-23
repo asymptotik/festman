@@ -1,0 +1,1 @@
+[07-Feb-2011 20:51:44] PHP Fatal error:  Call to undefined function  handlefiltercollaterallist() in /home/communik/public_html/festival2011/wp-content/plugins/cmkyf/festman/admin/library/handler_collateral_collection.php on line 46

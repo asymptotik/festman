@@ -1,0 +1,377 @@
+body, table
+{
+	font-family:Arial,Helvetica,sans-serif;
+	font-size: 12px;
+	font-weight:normal;
+}
+	
+body
+{
+	background: #FFFFFF;
+	color:#000000;
+}
+
+sup {font-size: 0.75em; line-height: 0.5em}
+
+/* main banner */
+.banner {
+	padding-top: 15px;
+	border:0px;
+}
+
+/* general */
+a, a:active, a:visited { color: #5f9f0b; text-decoration:underline;}
+a:hover { color: #8cc63f; } 
+table { border-collapse: collapse; }
+
+h1 { font-size: 30px; color: #8cc63f; }
+h2 { font-size: 24px; color: #ec008c; }
+
+dt { color: #ec008c; font-weight: bold; margin: .66666em 0 .6666666em 0;}
+ /* button */
+ 
+ /* button general */
+.tickets-button { outline: none; display: block; height: 31px; width: 184px; }
+.tickets-button img { border: 0; display: block; height: 31px; width: 184px; }
+.tickets-button:hover { background-position: 0 -31px; }
+
+ /* content */
+ .content-table { margin: 20px 0 0 0; width: 100%; }
+ .page-header { margin: 20px 0 20px 0; }
+ .page-header > h1, .page-header > h2, .page-header > h3, .page-header > h4 { margin-top: 0px; margin-bottom: 0px; }
+ .error-page-header { margin: 20px 0 20px 0;color: #ff2020; }
+ .error-page-header > h1, .error-page-header > h2, .error-page-header > h3, .error-page-header > h4 { margin-top: 0px; margin-bottom: 0px; }
+/* Items */
+
+a.item_scrollpanel
+{
+	display: block;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none; 	
+	background: transparent;	
+	margin: 0;
+	padding: 2px 0 2px 0;
+}
+a.item_scrollpanel:hover
+{
+	color: #444444;
+}
+
+.daymonth
+{	
+	font-size: 1.15em;
+	color: #000000;
+	text-decoration: none; 	
+	background: transparent;
+}
+.date
+{	
+	font-size: 1.75em;
+	font-weight: normal;
+	color: #ec008c;
+	text-decoration: none; 	
+	background: transparent;
+}
+
+.time
+{	
+	font-size: 1.15em;
+	color: #ec008c;
+}
+
+.events
+{	
+	font-size: 1.5em;
+	font-weight: normal;
+	color: #8cc63f;
+	text-decoration: none; 	
+	background: transparent;
+	letter-spacing:3px;
+	width: 128px;
+}
+
+.item_namelist {
+	font-weight: bold;
+	color: #ec008c;
+}
+
+/* performances page styles */
+
+.cmky_blurb_text {
+	font-weight: normal;
+	color: #5f9f0b;
+}
+
+/* venue page styles */
+
+#venue_photo {
+	top:-20px;
+	position:absolute;
+	float:left;
+	border: 1px solid #8cc73f;
+	right: 335px;
+	z-index:10
+}
+
+#venue_content {
+	background-color:#8cc63f;
+	width:380px;
+	height:100%;
+}
+
+#venue_title_block {
+	width:380px;
+	text-align: left;
+	padding:10px 0 10px 0;
+	border-bottom: 1px solid #ffffff;
+}
+
+.venue_name {
+	margin:0 10px 0 50px;
+	color:#ffffff;
+	font-size:2.0em;
+	font-weight: bold;
+}
+
+#venue_details {
+	position: relative;
+	text-align: left;
+	padding: 10px 0px 10px 0px;
+	margin-left:0px;
+}
+
+a.venue_link, a.venue_link:active, a.venue_link:visited {
+	font-size:1.15em;
+	font-weight: bold;
+	color:#000000;
+	margin-left: 70px;
+	margin-right: 20px;
+}
+
+a.venue_link:hover {
+	text-decoration:underline;
+}
+
+a.venue_map_link, a.venue_map_link:active, a.venue_map_link:visited {
+	font-size:1.15em;
+	font-weight: bold;
+	color:#ffffff;
+	margin-left: 70px;
+	margin-right: 20px;
+}
+
+a.venue_map_link:hover {
+	text-decoration:underline;
+}
+
+a.venue_map, a.venue_map:active, a.venue_map:visited {
+	font-size:1.15em;
+	font-weight:bold;
+	color:#ffffff;
+	margin-left: 70px;
+	margin-right: 20px;
+}
+
+a.venue_map:hover {
+	text-decoration:underline;	
+}
+
+.venue_address {
+	color:#ffffff;
+	font-size:1.15em;	
+	margin-left: 70px;
+	margin-right: 20px;
+}
+
+.address {
+	color:#8cc73f;
+	font-size:1.15em;	
+}
+
+a.link-small, a.link-small:active, a.link-small:visited {
+	font-size:0.85em;
+	font-weight: bold;
+	color:#8cc73f;
+	text-decoration:none;
+}
+
+a.link-small:hover {
+	text-decoration:underline;
+}
+
+
+
+div.solid_line { border-top: 1px solid #ffffff; }
+
+.venue_blurb {
+	color:#ffffff;
+	margin-left: 70px;
+	margin-right: 20px;
+}
+
+
+#item_photo {
+	top: -30px;
+	position: absolute;
+	border: 1px solid #8cc73f;
+	left: -305px;
+	z-index:10
+}
+
+#item_content {
+	background-color:#ffffff;
+	background-color:#8cc73f;
+	width:100%;
+}
+
+#item_title_block {
+	text-align: left;
+	padding: 10px 0 10px 130px;
+	border-bottom: 1px solid #ffffff;
+}
+
+
+.item_name {
+	color:#ffffff;
+	font-size:2.0em;
+	font-weight: bold;
+}
+
+.item_location {
+	color:#ffffff;
+	font-size:1.25em;
+}
+
+#item_details {
+	position: relative; 
+	text-align: left;
+	padding:10px 15px 10px 0px;
+	margin-left:180px;
+}
+
+a.item_link, a.item_link:active, a.item_link:visited {
+	padding-bottom:5px;
+	font-size:1.15em;
+	color:#000000;
+	text-decoration:none;
+}
+
+a.item_link:hover {
+	text-decoration:underline;
+}
+
+a.item_loc_link, a.item_loc_link:active, a.item_loc_link:visited {
+	font-size:1.15em;
+	color:#5f9f0b;
+	text-decoration:none;
+}
+
+a.item_loc_link:hover {
+	text-decoration:underline;
+}
+
+a.loc_item_link, a.loc_item_link:active, a.loc_item_link:visited {
+	font-size:1.15em;
+	font-weight: bold;
+	color:#5f9f0b;
+	text-decoration:none;
+}
+
+a.loc_item_link:hover {
+	text-decoration:underline;
+}
+
+
+#soundclip {
+	background-image: url(../images/button_soundclip.gif);
+	background-repeat: no-repeat;
+	height:25px;	
+}
+
+a.item_music, a.item_music:active, a.item_music:visited {
+	line-height:25px;
+	padding-left:28px;
+	font-size:1.15em;
+	color:#000000;
+	text-decoration:none;
+}
+
+a.item_music:hover {
+	text-decoration:underline;
+}
+
+.item_blurb {
+	color:#ffffff;
+	margin-right:0;
+}
+
+.item_blurb a, .item_blurb a:active, .item_blurb a:visited {
+	color:#444444;
+	text-decoration:underline;
+}
+
+.item_blurb a:hover {
+	color:#FFFFFF;
+}
+
+
+/* media kit */
+
+a.mk_link, a.mk_link:active, a.mk_link:visited { font-size: 23pt; color: #5f9f0b; text-decoration:underline;}
+a.mk_link:hover { color: #ec008c; }
+
+span.hidden { visibility: hidden; }
+span.visible { visibility: visible; }
+
+/* tourism */
+
+a.TourismLink, a.TourismLink:active, a.TourismLink:visited { font-size: 1.15em; color: #5f9f0b; text-decoration:underline;}
+a.TourismLink:hover { color: #8cc63f; }
+.TourismAddress { }
+.TourismCity {  }
+.TourismState {  }
+.TourismPhone { }
+.TourismExtra { font-size: 10pt; }
+
+a.SponsorshipDocLink, a.SponsorshipDocLink:active, a.SponsorshipDocLink:visited { font-size: 1.15em; color: #5f9f0b; text-decoration:underline;}
+.SponsorshipDocLink:hover { font-size: 0.85em; color: #ec008c; }
+.SponsorshipLevelText { font-size: 1.15em; }
+.SponsorsTable td { padding: 10px 5px 5px 10px; }
+
+/* contact */
+a.Contact, a.Contact:active, a.Contact:visited { color: #5f9f0b; text-decoration:underline;}
+a.Contact:hover { color: #8cc63f; }
+
+/* tickets */
+
+a.TicketVenue, a.TicketVenue:active, a.TicketVenue:visited  {  font-size: 1.25em; font-weight: normal; text-decoration: underline; }
+a.TicketVenue:hover { text-decoration: underline; }
+.TicketTitle { color: #ec008c; font-size: 1.25em; font-weight: normal; }
+.TicketSubtitle {}
+.TicketPrice {}
+.TicketVenue {}
+.TicketEventAddress {}
+.TicketVenuePhone {}
+.TicketEventDate {}
+.TicketWorkshop {}
+.TicketEventTime {}
+
+
+a.LocationNameLink, a.LocationNameLink:active, a.LocationNameLink:visited  {  font-size: 1.25em; text-decoration: none; }
+a.LocationNameLink:hover { text-decoration: underline; }
+a.LocationMapUrl, a.LocationMapUrl:active, a.LocationMapUrl:visited  {  color: #ec008c; font-size: 0.85em; font-weight: normal; }
+a.LocationDetailsLink, a.LocationDetailsLink:active, a.LocationDetailsLink:visited  { color: #ec008c; font-size: 0.85em; font-weight: normal; }
+a.LocationUrlLink, a.LocationUrlLink:active, a.LocationUrlLink:visited  {  font-weight: normal; text-decoration: underline; }
+a.LocationUrlLink:hover { text-decoration: underline; }
+.LocationAddress {}
+.LocationCity {}
+.LocationState {}
+.LocationZipCode {}
+.LocationPhone {}
+
+/* Organization */
+
+.OrgTitle { color: #ec008c; }
+.OrgTable td { padding: 5px; }
