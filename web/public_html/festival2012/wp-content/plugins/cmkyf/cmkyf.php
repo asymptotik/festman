@@ -176,7 +176,7 @@ function fm_locations_admin_func()
   }
 }
 
-function fm_events_page() 
+function fm_events_admin_func() 
 {
   require_once(dirname(__FILE__) . '/festman/admin/FmEventEventHandler.php');
   $handler = new FmEventEventHandler();

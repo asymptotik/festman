@@ -107,7 +107,7 @@ if(isset($_SESSION['current_program_item']))
   $program_item = $_SESSION['current_program_item'];
   $program_item_class = $program_item->getObjectClass();
   $fm_is_new = false;
-  $fm_page = "fm-" . strtolower($program_item_class) . "-page";
+  $fm_page = "fm-" . strtolower(esc_attr($program_item_class)) . "-page";
 }
 else
 {
@@ -115,7 +115,7 @@ else
   $program_item_class = $_SESSION['current_program_item_class'];
   $program_item->setObjectClass($program_item_class);
   $fm_is_new = true;
-  $fm_page = "fm-" . strtolower($program_item_class) . "-page";
+  $fm_page = "fm-" . strtolower(esc_attr($program_item_class)) . "-page";
 }
 
 $object_class_display_name = ProgramItem::getObjectClassDisplayName($program_item_class);
@@ -127,13 +127,13 @@ if ( !defined('ABSPATH') )
   die('-1');
 
 if ( !$fm_is_new ) {
-  $heading = sprintf( __( '<a href="%s">%s</a> / Edit %s' ), 'admin.php?page=' . $fm_page, $program_item_class, $program_item_class );
-  $submit_text = sprintf(__('Update %s'), $program_item_class);
+  $heading = sprintf( __( '<a href="%s">%s</a> / Edit %s' ), 'admin.php?page=' . $fm_page, esc_html($program_item_class), esc_html($program_item_class) );
+  $submit_text = sprintf(__('Update %s'), esc_html($object_class_display_name));
   $form = '<form name="program-item-form" id="program-item-form" method="post" action="admin.php?page=' . $fm_page . '">';
   $nonce_action = 'update-' . $program_item_class . '_' . $program_item->getId();
 } else {
-  $heading = sprintf( __( '<a href="%s">%s</a> / Add New %s' ), 'admin.php?page=concerts', $program_item_class, $program_item_class );
-  $submit_text = sprintf(__('Add %s'), $program_item_class);
+  $heading = sprintf( __( '<a href="%s">%s</a> / Add New %s' ), 'admin.php?page=concerts', esc_html($program_item_class), esc_html($program_item_class) );
+  $submit_text = sprintf(__('Add %s'), esc_html($object_class_display_name));
   $form = '<form name="program-item-form" id="program-item-form" method="post" action="admin.php?page=' . $fm_page . '">';
   $nonce_action = 'add-' . $program_item_class;
 }
@@ -146,11 +146,11 @@ $user_ID = isset($user_ID) ? (int) $user_ID : 0;
 
 if(isset($_SESSION['error_message']))
 {
-  echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".$_SESSION['error_message']."</TD></TR></TABLE><BR/>";
+  echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".esc_html($_SESSION['error_message'])."</TD></TR></TABLE><BR/>";
 }
 if(isset($_SESSION['action_message']))
 {
-  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".$_SESSION['action_message']."</TD></TR></TABLE>";
+  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".esc_html($_SESSION['action_message'])."</TD></TR></TABLE>";
 }
 
 if ( !empty($form) )
@@ -159,22 +159,22 @@ if ( !empty($link_added) )
   echo $link_added;
   
 echo "\n";
-wp_nonce_field( $nonce_action ); echo "\n";
+wp_nonce_field( esc_attr($nonce_action) ); echo "\n";
 ?>
 
   <div class="wrap">
     <div id="icon-themes" class="icon32">
       <br>
     </div>
-    <h2><?php echo $heading; ?> <a href="admin.php?page='. <?php echo $fm_page; ?> .'&action=create_program_item&program_item_class='. <?php echo $object_class_display_name; ?> .'" class="add-new-h2"><?php echo esc_html_x('Add New', 'concert'); ?></a></h2>
+    <h2><?php echo $heading; ?> <a href="admin.php?page='. <?php echo $fm_page; ?> .'&action=create_program_item&program_item_class='. <?php echo esc_attr($object_class_display_name); ?> .'" class="add-new-h2"><?php echo esc_html_x('Add New', 'Add New'); ?></a></h2>
     <div id="poststuff" class="metabox-holder has-right-sidebar">
     
       <input type="hidden" name="action" value="save_program_item" /> 
       <input type="hidden" name="action_id" value="<?php echo uniqid("delete"); ?>" />
-      <input type="hidden" name="program_item_id" value="<?php echo $program_item->getId(); ?>" /> 
-      <input type="hidden" name="program_item_class" value="<?php echo $program_item_class; ?>" /> 
+      <input type="hidden" name="program_item_id" value="<?php echo esc_attr($program_item->getId()); ?>" /> 
+      <input type="hidden" name="program_item_class" value="<?php echo esc_attr($program_item_class); ?>" /> 
       <input type="hidden" name="collateral_collection_type" value="program_item" /> 
-      <input type="hidden" id="user-id" name="user_ID" value="<?php echo (int) $user_ID ?>" /> 
+      <input type="hidden" id="user-id" name="user_ID" value="<?php echo (int)$user_ID ?>" /> 
 
       <div id="side-info-column" class="inner-sidebar">
         <div id="side-sortables" class="meta-box-sortables ui-sortable">
@@ -183,19 +183,19 @@ wp_nonce_field( $nonce_action ); echo "\n";
               <br>
             </div>
             <h3 class="hndle">
-              <span><?php echo sprintf(__('Save %s'), $object_class_display_name); ?></span>
+              <span><?php echo sprintf(__('Save %s'), esc_html($object_class_display_name)); ?></span>
             </h3>
             <div class="inside">
               <div id="submitlink" class="submitbox">
                 <div id="major-publishing-actions">
                   <?php if(!$fm_is_new) { ?>
                     <div id="delete-action">
-                      <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this concert \'<?php echo esc_attr($program_item->getName()) ?>\'\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=$fm_page&amp;action=delete_program_item&amp;program_item_id=$program_item->getId()&amp;program_item_class=$program_item_class", 'delete-' . $program_item_class . '_' . $program_item->getId() )  ?>">Delete</a>
+                      <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this \'<?php echo esc_attr($program_item->getName()); ?>\'\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=$fm_page&amp;action=delete_program_item&amp;program_item_id=" . esc_attr($program_item->getId()) . "&amp;program_item_class=" . esc_attr($program_item_class), 'delete-' . $program_item_class . '_' . esc_attr($program_item->getId()) )  ?>">Delete</a>
                     </div>
                   <?php } ?>
                   <div id="publishing-action">
           
-                    <button onclick="fmOnSubmitProgramItemForm(); return false;" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save">Submit <?php echo $object_class_display_name ?></button>
+                    <button onclick="fmOnSubmitProgramItemForm(); return false;" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save"><?php echo $submit_text ?></button>
                   </div>
                   <div class="clear"></div>
                 </div>
@@ -211,7 +211,7 @@ wp_nonce_field( $nonce_action ); echo "\n";
           
           <div id="namediv" class="stuffbox">
             <h3>
-              <label for="name"><?php _e($object_class_display_name) ?></label>
+              <label for="name"><?php esc_html($object_class_display_name) ?></label>
             </h3>
             <div class="inside">
               <table class="form-table edit-concert concert-form-table">
@@ -289,7 +289,7 @@ wp_nonce_field( $nonce_action ); echo "\n";
                    <tr>
                      <td class="column-name">
                       <strong>
-                        <a class="row-title" title="Edit ÒDocumentationÓ" href="admin.php?page=<?php echo $fm_page; ?>&action=edit_related_person&related_person_id=<?php echo $related_person_id ?>"><?php echo stripslashes($related_persons_name);?></a>
+                        <a class="row-title" title="Edit ÒDocumentationÓ" href="admin.php?page=<?php echo $fm_page; ?>&action=edit_related_person&related_person_id=<?php echo esc_attr($related_person_id) ?>"><?php echo esc_html($related_persons_name);?></a>
                       </strong>
                       <br>
                       <div class="row-actions">
@@ -297,12 +297,12 @@ wp_nonce_field( $nonce_action ); echo "\n";
                           <a onclick="fmEditRelatedPerson(<?php echo $related_person_id ?>); return false;" href="#">Edit</a> |
                         </span>
                         <span class="delete">
-                          <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this Person.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=$fm_page&amp;action=delete_related_person&amp;related_person_id=$related_person_id", 'delete-related-person_' . $related_person_id )  ?>">Delete</a>
+                          <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this Person.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=$fm_page&amp;action=delete_related_person&amp;related_person_id=". esc_attr($related_person_id), 'delete-related-person_' . esc_attr($related_person_id) )  ?>">Delete</a>
                         </span>
                       </div>
                     </td>
-                    <td><?php echo $collateral_count;?></td>
-                    <td><?php echo $related_persons_role;?></td>
+                    <td><?php echo esc_html($collateral_count);?></td>
+                    <td><?php echo esc_html($related_persons_role);?></td>
                   </tr>
                   
                     
@@ -378,9 +378,9 @@ wp_nonce_field( $nonce_action ); echo "\n";
 
                    <tr>
                      <td class="column-name">
-                      <input type="hidden" name="object_collateral_ids[]" value="<?php echo $cc_collateral_id; ?>">
+                      <input type="hidden" name="object_collateral_ids[]" value="<?php echo esc_attr($cc_collateral_id); ?>">
                       <strong>
-                        <a class="row-title" title="Edit ÒCollateralÓ" href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo $cc_collateral_id ?>"><?php echo stripslashes($cc_collateral_name);?></a>
+                        <a class="row-title" title="Edit ÒCollateralÓ" href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo esc_attr($cc_collateral_id) ?>"><?php echo esc_html($cc_collateral_name);?></a>
                       </strong>
                       <br>
                       <div class="row-actions">
@@ -390,12 +390,12 @@ wp_nonce_field( $nonce_action ); echo "\n";
                         </span>
                         -->
                         <span class="remove">
-                          <a class="submitdelete" onclick="if ( confirm( 'You are about to remove this Collateral.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=fm-collateral-page&amp;action=remove_collateral&amp;object_collateral_id=$cc_collateral_id", 'remove-collateral_' . $cc_collateral_id )  ?>">Remove</a>
+                          <a class="submitdelete" onclick="if ( confirm( 'You are about to remove this Collateral.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=fm-collateral-page&amp;action=remove_collateral&amp;object_collateral_id=" . esc_attr($cc_collateral_id), 'remove-collateral_' . esc_attr($cc_collateral_id) )  ?>">Remove</a>
                         </span>
                       </div>
                     </td>
-                    <td><input type="text" name="object_collateral_sort_order[]" size="3" value="<?php echo $cc_object_collateral_sort_order; ?>"></td>
-                    <td><input type="radio" name="object_collateral_default" value="<?php echo $cc_collateral_id; ?>" <?php echo ($cc_object_collateral_is_default == true ? "checked=\"true\"" : ""); ?>"></td>
+                    <td><input type="text" name="object_collateral_sort_order[]" size="3" value="<?php echo esc_attr($cc_object_collateral_sort_order); ?>"></td>
+                    <td><input type="radio" name="object_collateral_default" value="<?php echo esc_attr($cc_collateral_id); ?>" <?php echo ($cc_object_collateral_is_default == true ? "checked=\"true\"" : ""); ?>"></td>
                   </tr>
                   
                     

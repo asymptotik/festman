@@ -81,18 +81,18 @@ class Location extends AbstractCollateralCollection
 		{
 			if($selected_location_id == $row['Location_Id'])
 			{
-				$ret = $ret . "<OPTION value=\"" . $row['Location_Id'] . "\" selected=\"true\">" . $row['Name'] . "</OPTION>\n";
+				$ret = $ret . "<option value=\"" . esc_attr($row['Location_Id']) . "\" selected=\"true\">" . esc_html($row['Name']) . "</option>\n";
 				$has_selected = true;
 			}
 			else
 			{
-				$ret = $ret . "<OPTION value=\"" . $row['Location_Id'] . "\">" . $row['Name'] . "</OPTION>\n";
+				$ret = $ret . "<option value=\"" . esc_attr($row['Location_Id']) . "\">" . esc_html($row['Name']) . "</option>\n";
 			}
 		}
 
 		if($has_selected == false)
 		{
-			$ret = "<OPTION value=\"\" selected=\"true\">&lt;Select Location&gt;</OPTION>\n" . $ret;
+			$ret = "<option value=\"\" selected=\"true\">&lt;Select Location&gt;</option>\n" . $ret;
 		}
 		
 		return $ret;

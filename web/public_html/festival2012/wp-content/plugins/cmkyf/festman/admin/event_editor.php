@@ -47,7 +47,7 @@ var endTimeValidator = new fmValidator();
     endTimeValidator.addValidator(new fmRequiredValidator("Please enter an End Time."));
     endTimeValidator.addValidator(new fmDateTimeValidator("End Time must have format mm/dd/yyyy hh:mm."));
 
-function onSubmitEventForm()
+function fmOnSubmitEventForm()
 {
     var form = document.forms["event_form"];
     var elements = form.elements;
@@ -74,15 +74,7 @@ function onSubmitEventForm()
     }
 }
 
-function onCancelEventEditor()
-{
-    var form = document.forms["event_form"];
-    
-    form.elements["action"].value = "cancel_event_editor";
-    form.submit();
-}
-
-function removeProgramItem(ppi_id)
+function fmRemoveProgramItem(ppi_id)
 {
     var form = document.forms["event_form"];
     form.elements["action"].value = "remove_program_item";
@@ -95,7 +87,7 @@ function removeProgramItem(ppi_id)
 // we use php to predefine some javascript functions to help us set the
 // ObjectType Instance option mennus to the available options from the db.
 // Updated the UI in real time, saving the round trip.
-function handleItemTypeOptionChange(index)
+function fmHandleItemTypeOptionChange(index)
 {
     var form = document.forms["event_form"];
     var object_class;
@@ -119,75 +111,75 @@ function handleItemTypeOptionChange(index)
     //alert("OptionClass: " + object_class);
     if(object_class == "Act")
     {
-        option_html = getActOptions();
+        option_html = fmGetActOptions();
     }
     else if(object_class == "Workshop")
     {
-        option_html = getWorkshopOptions();
+        option_html = fmGetWorkshopOptions();
     }
     else if(object_class == "Panel")
     {
-        option_html = getPanelOptions();
+        option_html = fmGetPanelOptions();
     }
     else if(object_class == "Film")
     {
-        option_html = getFilmOptions();
+        option_html = fmGetFilmOptions();
     }
     else if(object_class == "Klass")
     {
-        option_html = getKlassOptions();
+        option_html = fmGetKlassOptions();
     }
     else if(object_class == "Film")
     {
-        option_html = getFilmOptions();
+        option_html = fmGetFilmOptions();
     }
     else if(object_class == "Installation")
     {
-        option_html = getInstallationOptions();
+        option_html = fmGetInstallationOptions();
     }
     
     if(option_html == '')
     {
-        option_html = "<INPUT type=\"hidden\" name=\"instance_ids[]\" value=\"\" />Select a Type";
+        option_html = "<input type=\"hidden\" name=\"instance_ids[]\" value=\"\" />Select a Type";
     }
     else
     {
-        option_html = "<SELECT name=\"instance_ids[]\">" + option_html + "</SELECT>";
+        option_html = "<input name=\"instance_ids[]\">" + option_html + "</input>";
     }
     object_instance_parent.innerHTML = option_html;
 }
 
-function getActOptions()
+function fmGetActOptions()
 {
 <?php echo "    return '" . str_replace("\n", "", ProgramItem::getProgramItemSelectOptions("Act", "")) . "';"; ?>  
 }
 
-function getWorkshopOptions()
+function fmGetWorkshopOptions()
 {
 <?php echo "    return '" . ProgramItem::getProgramItemSelectOptions("Workshop", "") . "';"; ?>  
 }
 
-function getPanelOptions()
+function fmGetPanelOptions()
 {
 <?php echo "    return '" . ProgramItem::getProgramItemSelectOptions("Panel", "") . "';"; ?>  
 }
 
-function getFilmOptions()
+function fmGetFilmOptions()
 {
 <?php echo "    return '" . ProgramItem::getProgramItemSelectOptions("Film", "") . "';"; ?>  
 }
 
-function getKlassOptions()
+function fmGetKlassOptions()
 {
 <?php echo "    return '" . ProgramItem::getProgramItemSelectOptions("Klass", "") . "';"; ?>  
 }
 
-function getFilmOptions()
+function fmGetFilmOptions()
 {
 <?php echo "    return '" . ProgramItem::getProgramItemSelectOptions("Film", "") . "';"; ?>  
 }
 
-function getInstallationOptions()
+function fmGetInstallationOptions()
 {
 <?php echo "    return '" . ProgramItem::getProgramItemSelectOptions("Installation", "") . "';"; ?>  
 }
@@ -197,23 +189,19 @@ function getInstallationOptions()
 if(isset($_SESSION['current_event']))
 {
 	$event = $_SESSION['current_event'];
+  $fm_is_new = false;
 }
 else
 {
 	$event = new Event();
+	$fm_is_new = true;
 }
 
-$collateral_collection_control = new CollateralCollectionControl($event, "event_form", "event");
 $location_select_options = Location::getLocationSelectOptions($event->getLocation_Id());
-
-if(isset($_SESSION['error_message']))
-{
-	echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".$_SESSION['error_message']."</TD></TR></TABLE><BR/>";
-}
 
 // Creates a table row for a Program_ProgramItem.
 // ppi_id[], positions[], start_times[], object_classes[], instance_ids[].
-function generateProgram_ProgramItemTableRow($num, $ppi)
+function fmGenerateProgram_ProgramItemTableRow($num, $ppi)
 {
 	if($ppi == NULL)
 	{
@@ -229,171 +217,345 @@ function generateProgram_ProgramItemTableRow($num, $ppi)
 	    $program_item_id = $program_item->getId();
 	}
 
-	echo '<TR>'. "\n";
+	echo '<tr>'. "\n";
 
-	echo '<TD><INPUT type="hidden" name="ppi_ids[]" value="'. $ppi->getId() . '" /><INPUT type="text" name="positions[]" size="3" value="' . $ppi->getPosition() . '" /></TD>'. "\n";
-	echo '<TD><INPUT type="text" name="start_times[]" size="20" value="' . $ppi->getStartTimeString() . '" /></TD>'. "\n";
-	echo '<TD><SELECT name="object_classes[]" onChange="handleItemTypeOptionChange('.$num.')">'. "\n";
-	if($program_item_type_name == '') echo     '<OPTION value="" selected="true">&lt;Select One&gt;</OPTION>' . "\n";
-	echo     '<OPTION value="Act"'. ($program_item_type_name == "Act" ? ' selected="true"' : ''). '>Act</OPTION>' . "\n";
-	echo     '<OPTION value="Workshop"'. ($program_item_type_name == "Workshop" ? ' selected="true"' : ''). '>Workshop</OPTION>' . "\n";
-	echo     '<OPTION value="Installation"'. ($program_item_type_name == "Installation" ? ' selected="true"' : ''). '>Installation</OPTION>' . "\n";
-	echo     '<OPTION value="Panel"'. ($program_item_type_name == "Panel" ? ' selected="true"' : ''). '>Panel</OPTION>' . "\n";
-	echo     '<OPTION value="Film"'. ($program_item_type_name == "Film" ? ' selected="true"' : ''). '>Film</OPTION>' . "\n";
-	echo     '<OPTION value="Klass"'. ($program_item_type_name == "Klass" ? ' selected="true"' : ''). '>Class</OPTION>' . "\n";
-	echo     '<OPTION value="Film"'. ($program_item_type_name == "Film" ? ' selected="true"' : ''). '>Film</OPTION>' . "\n";
-	echo     '</SELECT></TD>' . "\n";
-	echo '<TD class="label_sm" id="object_instance_'.$num.'">' . "\n";
+	echo '<td><input type="hidden" name="ppi_ids[]" value="'. $ppi->getId() . '" /><input type="text" name="positions[]" size="3" value="' . $ppi->getPosition() . '" /></td>'. "\n";
+	echo '<td><input type="text" name="start_times[]" size="20" value="' . $ppi->getStartTimeString() . '" /></td>'. "\n";
+	echo '<td><select name="object_classes[]" onChange="fmHandleItemTypeOptionChange('.$num.')">'. "\n";
+	if($program_item_type_name == '') echo     '<option value="" selected="true">&lt;Select One&gt;</option>' . "\n";
+	echo     '<option value="Act"'. ($program_item_type_name == "Act" ? ' selected="true"' : ''). '>Act</option>' . "\n";
+	echo     '<option value="Workshop"'. ($program_item_type_name == "Workshop" ? ' selected="true"' : ''). '>Workshop</option>' . "\n";
+	echo     '<option value="Installation"'. ($program_item_type_name == "Installation" ? ' selected="true"' : ''). '>Installation</option>' . "\n";
+	echo     '<option value="Panel"'. ($program_item_type_name == "Panel" ? ' selected="true"' : ''). '>Panel</option>' . "\n";
+	echo     '<option value="Film"'. ($program_item_type_name == "Film" ? ' selected="true"' : ''). '>Film</option>' . "\n";
+	echo     '<option value="Klass"'. ($program_item_type_name == "Klass" ? ' selected="true"' : ''). '>Class</option>' . "\n";
+	echo     '</select></td>' . "\n";
+	echo '<td class="label_sm" id="object_instance_'.$num.'">' . "\n";
 	if($program_item != NULL)
 	{
-		echo "<SELECT name=\"instance_ids[]\">\n".
+		echo "<select name=\"instance_ids[]\">\n".
 		$program_item->getTypedSelectOptions().
-		"</SELECT>\n";
+		"</select>\n";
 	}
 	else
 	{
-		echo "<INPUT type=\"hidden\" name=\"instance_ids[]\" value=\"\" />Select a Type.";
+		echo "<input type=\"hidden\" name=\"instance_ids[]\" value=\"\" />Select a Type.";
 	}
-	echo '</TD>' . "\n";
-	echo '<TD>'. "\n";
+	echo '</td>' . "\n";
+	echo '<td>'. "\n";
 	if($ppi->getId() != NULL)
 	{
-		echo '    <a href="javascript:void(0);" onClick="javascript:removeProgramItem('.$ppi->getId().');"><FONT size="-3">remove</FONT></a>' . "\n";
+		echo '    <a href="javascript:void(0);" onClick="javascript:fmRemoveProgramItem('.$ppi->getId().');"><font size="-3">remove</font></a>' . "\n";
 	    //echo '    <INPUT type="checkbox" name="checked_ppi_ids_'.$num.'" value="' . $ppi->getId() . '" /><FONT size="-3">delete</FONT>' . "\n";
 	}
-	echo '</TD>'. "\n";
-	echo '</TR>'. "\n";
+	echo '</td>'. "\n";
+	echo '</tr>'. "\n";
+  
+  
+  
+  
+  /*
+   * 
+                   <tr>
+                     <td class="column-name">
+                      <input type="hidden" name="object_collateral_ids[]" value="<?php echo esc_attr($cc_collateral_id); ?>">
+                      <strong>
+                        <a class="row-title" title="Edit ÒCollateralÓ" href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo esc_attr($cc_collateral_id); ?>"><?php echo esc_html($cc_collateral_name);?></a>
+                      </strong>
+                      <br>
+                      <div class="row-actions">
+                        <span class="edit">
+                          <a href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo esc_attr($cc_collateral_id); ?>">Edit</a> |
+                        </span>
+                        <span class="remove">
+                          <a class="submitdelete" onclick="if ( confirm( 'You are about to remove this Collateral.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=fm-collateral-page&amp;action=remove_collateral&amp;object_collateral_id=" . esc_attr($cc_collateral_id), 'remove-collateral_' . esc_attr($cc_collateral_id) )  ?>">Remove</a>
+                        </span>
+                      </div>
+                    </td>
+                    <td><input type="text" name="object_collateral_sort_order[]" size="3" value="<?php echo $cc_object_collateral_sort_order; ?>"></td>
+                    <td><input type="radio" name="object_collateral_default" value="<?php echo $cc_collateral_id; ?>" <?php echo ($cc_object_collateral_is_default == true ? "checked=\"true\"" : ""); ?>"></td>
+                  </tr>
+ 
+   */
 }
-?>
 
-<TABLE CLASS="border pallet">
-	<THEAD class="h1">
-		<TR CLASS="border">
-			<TD>&nbsp;Event Editor</TD>
-		</TR>
-	</THEAD>
-	<TR>
-		<TD>&nbsp;</TD>
-	</TR>
-	<TR>
-		<TD width="700" align="center">
-		<FORM NAME="event_form" ID="event_form" METHOD="POST" ACTION="library/handler_event.php" enctype="multipart/form-data">
-		<input type="hidden" name="action" value="save_event" /> 
-		<input type="hidden" name="program_program_item_id" value="-1" />
-		<input type="hidden" name="action_id" value="<?php echo uniqid("delete"); ?>" />
-		<input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>" /> 
-		<TABLE width="80%" align="center">
-			<TR>
-				<TD class="label">Name:</TD>
-				<TD><INPUT type="text" name="event_name" size="50"
-					value="<?php echo $event->getName(); ?>" /></TD>
-			</TR>
-			<TR>
-				<TD class="label">Location:</TD>
-				<TD><SELECT name="event_location_id">
-				<?php echo $location_select_options; ?>
-				</SELECT></TD>
-			</TR>
-			<TR>
-				<TD class="label">Start Time:</TD>
-				<TD><INPUT type="text" name="event_start_time" size="30"
-					value="<?php echo $event->getStartTimeString(); ?>" /> <SPAN class="label_md">(mm/dd/yyyy hh:mm)</SPAN></TD>
-			</TR>
-			<TR>
-				<TD class="label">End Time:</TD>
-				<TD><INPUT type="text" name="event_end_time" size="30"
-					value="<?php echo $event->getEndTimeString(); ?>" /> <SPAN class="label_md">(mm/dd/yyyy hh:mm)</SPAN></TD>
-			</TR>
-			<TR>
-				<TD class="label">Description:</TD>
-				<TD><TEXTAREA class="mceEditor" rows="10" cols="50" name="event_description"><?php echo $event->getDescription(); ?></TEXTAREA></TD>
-			</TR>
-			<TR>
-				<TD class="label" align="center" colspan="2"><BR>Program</TD>
-			</TR>
-			<TR>
-				<TD colspan="2" align="right">
-				<TABLE width="100%">
-					<THEAD class="h2">
-						<TR class="border">
-							<TD>Pos</TD>
-							<TD>Start Time</TD>
-							<TD>Type</TD>
-							<TD>Item</TD>
-							<TD></TD>
-						</TR>
-					</THEAD>
+$fm_page = 'fm-event-page';
 
-					<?php
-					$program = $event->getProgram();
-					$count = 0;
-					$num_old_rows = 0;
-					
-					if($program != NULL)
-					{
-						$ppis = &$program->getProgram_ProgramItems();
+if ( !$fm_is_new ) {
+  $heading = sprintf( __( '<a href="%s">Event</a> / Edit Event' ), 'admin.php?page=' . $fm_page );
+  $submit_text = __('Update Event');
+  $form = '<form name="event_form" id="event_form" method="post" action="admin.php?page=' . $fm_page . '">';
+  $nonce_action = 'update-event_' . $event->getId();
+} else {
+  $heading = sprintf( __( '<a href="%s">Event</a> / Add New Event' ), 'admin.php?page=' . $fm_page );
+  $submit_text = __('Add Event');
+  $form = '<form name="event_form" id="event_form" method="post" action="admin.php?page=' . $fm_page . '">';
+  $nonce_action = 'add-event';
+}
 
-						while($count < count($ppis))
-						{
-							if($ppis[$count]->getId() != null) $num_old_rows++;
-							
-							generateProgram_ProgramItemTableRow($count, $ppis[$count]);
-							$count++;
-						}
-					}
-					
-					//
-                    // We want to leave at lease 2 un-saved rows to edit.
-                    // 4 if there are no rows at all.
-                    //
-					if($count == 0) $num_extra_rows = 4;
-					else $num_extra_rows = 2;
-					
-					$max = $num_extra_rows - $count + $num_old_rows;
-					
-					for($i = 0; $i < $max; $i++)
-					{
-						generateProgram_ProgramItemTableRow($count++, NULL);
-					}
-					
-					?>
+require_once(ABSPATH . 'wp-admin/includes/meta-boxes.php');
 
-				</TABLE>
-				</TD>
-			</TR>
+add_screen_option('layout_columns', array('max' => 2) );
 
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD class="label">Collateral:</TD>
-				<TD><?php $collateral_collection_control->render(); ?></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-		
-			<TR>
-				<TD colspan="2" align="right"><br>
-				<BUTTON type="button" onClick="javascript:onCancelEventEditor();">Done
-				Editing</BUTTON>
-				<BUTTON type="button" onClick="javascript:onSubmitEventForm();">Save</BUTTON><br><br>
-				</TD>
-			</TR>
-			
-		</TABLE>
-		</FORM>
-		</TD>
-	</TR>
-</TABLE>
+$user_ID = isset($user_ID) ? (int) $user_ID : 0;
 
-<?php
-
+if(isset($_SESSION['error_message']))
+{
+  echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".$_SESSION['error_message']."</TD></TR></TABLE><BR/>";
+}
 if(isset($_SESSION['action_message']))
 {
-	echo "<BR/><TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".$_SESSION['action_message']."</TD></TR></TABLE>";
+  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".$_SESSION['action_message']."</TD></TR></TABLE>";
 }
 
+if ( !empty($form) )
+  echo $form;
+if ( !empty($link_added) )
+  echo $link_added;
+echo "\n";
+wp_nonce_field( esc_attr($nonce_action) ); echo "\n";
+?>
+
+  <div class="wrap">
+    <div id="icon-themes" class="icon32">
+      <br>
+    </div>
+    <h2><?php echo $heading; ?> <a href="admin.php?page='. <?php echo $fm_page; ?> .'&action=create_event" class="add-new-h2"><?php echo esc_html_x('Add New', 'event'); ?></a></h2>
+    <div id="poststuff" class="metabox-holder has-right-sidebar">
+    
+      <input type="hidden" name="action" value="save_event" /> 
+      <input type="hidden" name="program_program_item_id" value="-1" />
+      <input type="hidden" name="action_id" value="<?php echo uniqid("delete"); ?>" />
+      <input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>" /> 
+      <input type="hidden" id="user-id" name="user_ID" value="<?php echo (int) $user_ID ?>" /> 
+
+      <div id="side-info-column" class="inner-sidebar">
+        <div id="side-sortables" class="meta-box-sortables ui-sortable">
+          <div id="linksubmitdiv" class="postbox ">
+            <div class="handlediv" title="Click to toggle">
+              <br>
+            </div>
+            <h3 class="hndle">
+              <span><?php echo __('Save Location'); ?></span>
+            </h3>
+            <div class="inside">
+              <div id="submitlink" class="submitbox">
+                <div id="major-publishing-actions">
+                  <?php if(!$fm_is_new) { ?>
+                    <div id="delete-action">
+                      <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this Location \'<?php echo esc_attr($event->getName()) ?>\'\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=$fm_page&amp;action=delete_event&amp;location_id=" . esc_attr($event->getId()), 'delete-event_' . esc_attr($event->getId()) )  ?>">Delete</a>
+                    </div>
+                  <?php } ?>
+                  <div id="publishing-action">
+                    <button onclick="javascript:fmOnSubmitEventForm();" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save"><?php echo $submit_text; ?></button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="post-body">
+        <div id="post-body-content">
+          
+          <div id="namediv" class="stuffbox">
+            <h3>
+              <label for="name"><?php _e('Location') ?></label>
+            </h3>
+            <div class="inside">
+              <table class="form-table edit-concert concert-form-table">
+                <tr valign="top">
+                  <td class="first">Name:</td>
+                  <td><input name="event_name" type="text" size="50" value="<?php echo esc_attr($event->getName()); ?>" alt="name" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Location:</td>
+                  <td><select name="event_location_id"><?php echo $location_select_options; ?></select></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Start Time:</td>
+                  <td><input name="event_start_time" type="text" size="30" value="<?php echo esc_attr($event->getStartTimeString())?>" alt="url text" /><span class="label_md">(mm/dd/yyyy hh:mm)</span></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">End Time:</td>
+                  <td><input name="event_end_time" type="text" size="30" value="<?php echo esc_attr($event->getEndTimeString())?>" alt="map url" /><span class="label_md">(mm/dd/yyyy hh:mm)</span></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Description:</td>
+                  <td><?php the_editor($event->getDescription(), "event_description", "event_end_time", true); ?></td>
+                </tr>
+              </table>
+              <br>
+            </div>
+          </div>
+         
+
+          <div id="relateddiv" class="">
+            <h2>Program<a class="add-new-h2" href="admin.php?page=fm-collateral-page&action=add_collateral&collateral_collection_type=related_person">Add New</a></h2>
+              <table class="wp-list-table widefat pages" callspacing="0">
+                <thead>
+                  <tr>
+                    <th class="manage-column fm-post-column lc-column">Pos</th>
+                    <th class="manage-column fm-start-time-column lc-column">Start Time</th>
+                    <th class="manage-column fm-program-item-type-column">Type</th>
+                    <th class="manage-column fm-program-item-column">Act/Film/Class/etc</th>
+                    <th class="manage-column fm-delete-column"></th>
+                  </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th class="manage-column lc-column" style="" scope="col">Pos</th>
+                  <th class="manage-column lc-column" style="" scope="col">Start Time</th>
+                  <th class="manage-column lc-column" style="" scope="col">Type</th>
+                  <th class="manage-column lc-column" style="" scope="col">Act/Film/Class/etc</th>
+                  <th class="manage-column lc-column" style="" scope="col"></th>
+                </tr>
+                </tfoot>
+                <tbody id="the-list">
+                    
+                    <?php
+                      $program = $event->getProgram();
+                      $count = 0;
+                      $num_old_rows = 0;
+                      
+                      if($program != NULL)
+                      {
+                        $ppis = &$program->getProgram_ProgramItems();
+            
+                        while($count < count($ppis))
+                        {
+                          if($ppis[$count]->getId() != null) $num_old_rows++;
+                          
+                          fmGenerateProgram_ProgramItemTableRow($count, $ppis[$count]);
+                          $count++;
+                        }
+                      }
+                      
+                      //
+                      // We want to leave at lease 2 un-saved rows to edit.
+                      // 4 if there are no rows at all.
+                      //
+                      if($count == 0) $num_extra_rows = 4;
+                      else $num_extra_rows = 2;
+                      
+                      $max = $num_extra_rows - $count + $num_old_rows;
+                      
+                      for($i = 0; $i < $max; $i++)
+                      {
+                        fmGenerateProgram_ProgramItemTableRow($count++, NULL);
+                      }
+                      
+                      ?>
+                            
+                </tbody>
+              </table>
+      
+              <p>The program for this event.</p>
+          </div>
+          
+          <div id="relateddiv" class="">
+            <h2>Collateral<a class="add-new-h2" href="admin.php?page=fm-collateral-page&action=add_collateral&collateral_collection_type=related_person">Add New</a></h2>
+              <table class="wp-list-table widefat fixed pages" callspacing="0">
+                <thead>
+                  <tr>
+                    <th class="manage-column lc-column">Name</th>
+                    <th class="manage-column lc-column">Sort Order</th>
+                    <th class="manage-column lc-column">Default</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th class="manage-column lc-column" style="" scope="col">Name</th>
+                  <th class="manage-column lc-column" style="" scope="col">Sort Order</th>
+                  <th class="manage-column lc-column" style="" scope="col">Default</th>
+                </tr>
+                </tfoot>
+                <tbody id="the-list">
+                    
+                    <?php
+                    
+                      $cc_object_collateral_list = &$event->getAllObject_Collateral();
+                      $event->sortObject_Collateral();
+                      $cc_object_collateral_count = count($cc_object_collateral_list);
+                      if($cc_object_collateral_count > 0)
+                      {
+                        for($i = 0; $i < $cc_object_collateral_count; $i++)
+                        {
+                          $cc_object_collateral = $cc_object_collateral_list[$i];
+                          $cc_collateral = $cc_object_collateral->getCollateral();
+                          $cc_collateral_id = $cc_collateral->getId();
+                          $cc_collateral_name = $cc_collateral->getName();
+                          $cc_object_collateral_sort_order = $cc_object_collateral->getSortOrder();
+                          $cc_object_collateral_is_default = $cc_object_collateral->getIsDefault();
+              
+                          $action_id = uniqid("remove");
+              
+                          //echo "<tr class=\"border\">".
+                          //"  <td><input type=\"hidden\" name=\"object_collateral_ids[]\" value=\"".$cc_collateral_id."\">\n".
+                          //"    <input type=\"checkbox\" name=\"object_collateral_checked_ids[]\" value=\"".$cc_collateral_id."\"></td>\n".
+                          //"  <td><a href=\"javascript:void(0)\" OnClick=\"javascript:window.open('../" . $cc_collateral->getUrl() . "', 'collateral')\">".$cc_collateral_name."</td>\n".
+                          //"  <td><input type=\"text\" name=\"object_collateral_sort_order[]\" size=\"3\" value=\"".$cc_object_collateral_sort_order."\"></td>\n".
+                          //"  <td><input type=\"radio\" name=\"object_collateral_default\" value=\"".$cc_collateral_id."\" ". ($cc_object_collateral_is_default == true ? "checked=\"true\"" : "") ."></td>\n".
+                          //"  <td>&nbsp;<a href=\"javascript:void(0);\" onClick=\"javascript:removeCollateral('".$this->form_name."', '".$cc_collateral_id."');\">remove</a></td>\n".
+                          //"</tr>\n";
+                     ?>
+
+                   <tr>
+                     <td class="column-name">
+                      <input type="hidden" name="object_collateral_ids[]" value="<?php echo esc_attr($cc_collateral_id); ?>">
+                      <strong>
+                        <a class="row-title" title="Edit ÒCollateralÓ" href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo esc_attr($cc_collateral_id); ?>"><?php echo esc_html($cc_collateral_name);?></a>
+                      </strong>
+                      <br>
+                      <div class="row-actions">
+                        <span class="edit">
+                          <a href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo esc_attr($cc_collateral_id); ?>">Edit</a> |
+                        </span>
+                        <span class="remove">
+                          <a class="submitdelete" onclick="if ( confirm( 'You are about to remove this Collateral.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=fm-collateral-page&amp;action=remove_collateral&amp;object_collateral_id=" . esc_attr($cc_collateral_id), 'remove-collateral_' . esc_attr($cc_collateral_id) )  ?>">Remove</a>
+                        </span>
+                      </div>
+                    </td>
+                    <td><input type="text" name="object_collateral_sort_order[]" size="3" value="<?php echo esc_attr($cc_object_collateral_sort_order); ?>"></td>
+                    <td><input type="radio" name="object_collateral_default" value="<?php echo esc_attr($cc_collateral_id); ?>" <?php echo ($cc_object_collateral_is_default == true ? "checked=\"true\"" : ""); ?>"></td>
+                  </tr>
+                  
+                    
+                  <?php   } // endforeach ?>
+                <?php } else { // endif ?>
+                  <tr class="no-items">
+                    <td class="colspanchange" colspan="2">No Collateral found.</td>
+                  </tr>
+                <?php } ?>
+                
+                
+                    <?php
+                        //echo "<tr class=\"border\">".
+                        //"  <td><input type=\"checkbox\" name=\"program_item_ids[]\" value=\"".$program_item_id."\"</td>\n".
+                        //"  <td>".$program_item_name."&nbsp;(".$collateral_count.")</td>\n".
+                        //"  <td>&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0);\" onClick=\"javascript:editProgramItem('".$program_item_id."');\">edit</a></td>\n".
+                        //"  <td>&nbsp;<a href=\"javascript:void(0);\" onClick=\"javascript:deleteProgramItem('".$program_item_id."');\">delete</a></td>\n".
+                        //"</tr>\n";
+                    ?>
+                </tbody>
+              </table>
+      
+              <p>Collateral related to this item such as images, documents, etc.</p>
+          </div>
+          
+          <div id="postdiv" class="postarea"></div>
+          <div id="normal-sortables" class="meta-box-sortables"></div>
+          <input type="hidden" id="referredby" name="referredby" value="<?php echo esc_url(stripslashes(wp_get_referer())); ?>" />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<?php
 fmClearMessages();
 ?>
 

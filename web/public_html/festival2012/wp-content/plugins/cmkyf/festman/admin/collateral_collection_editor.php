@@ -187,16 +187,14 @@ if(isset($collateral_collection))
 
 if(isset($_SESSION['error_message']))
 {
-	echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".$_SESSION['error_message']."</TD></TR></TABLE><BR/>";
+  echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".esc_html($_SESSION['error_message'])."</TD></TR></TABLE><BR/>";
 }
 if(isset($_SESSION['action_message']))
 {
-  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".$_SESSION['action_message']."</TD></TR></TABLE>";
+  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".esc_html($_SESSION['action_message'])."</TD></TR></TABLE>";
 }
 
 ?>
-
-
 
 <div class="wrap">
     <div id="icon-themes" class="icon32">
@@ -219,7 +217,7 @@ if(isset($_SESSION['action_message']))
                 <div id="major-publishing-actions">
                   <div id="publishing-action">
           
-                    <button onclick="javascript:fmOnSubmitProgramItemForm();" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save">Submit <?php echo $object_class_display_name ?></button>
+                    <button onclick="javascript:fmOnSubmitProgramItemForm();" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save">Submit <?php echo esc_html($object_class_display_name); ?></button>
                   </div>
                   <div class="clear"></div>
                 </div>
@@ -245,8 +243,8 @@ if(isset($_SESSION['action_message']))
                   <form name="collateral_collection_form" id="collateral_collection_form" method="POST" action="admin.php?page=fm-collateral-page" enctype="multipart/form-data">
                   <input type="hidden" name="action" value="add_selected_collateral" /> 
                   <input type="hidden" name="action_id" value="<?php echo uniqid("delete"); ?>" /> 
-                  <input type="hidden" name="collateral_location_name" value="<?php echo $collateral_location_name ?>" /> 
-                  <input type="hidden" name="collateral_collection_type" value="<?php echo $collateral_collection_type ?>" />
+                  <input type="hidden" name="collateral_location_name" value="<?php echo esc_attr($collateral_location_name); ?>" /> 
+                  <input type="hidden" name="collateral_collection_type" value="<?php echo esc_attr($collateral_collection_type); ?>" />
                   <table width="80%" align="center">
                     <tr><yd colspan="2" align="right">
                       <select name="collateral_location_name" OnChange="fmOnFilterCollateral()">
@@ -258,7 +256,7 @@ if(isset($_SESSION['action_message']))
                           for($i = 0; $i < $collateral_location_count; $i++)
                           {
                             $collateral_location_to_name_assoc[$collateral_locations[$i]->getLocation()] = $collateral_locations[$i]->getName();
-                            echo "<OPTION value=\"".$collateral_locations[$i]->getName()."\"".($collateral_location_name == $collateral_locations[$i]->getName() ? " selected=\"true\"" : "").">".$collateral_locations[$i]->getName()."</OPTION>\n";
+                            echo "<OPTION value=\"".esc_attr($collateral_locations[$i]->getName())."\"".($collateral_location_name == $collateral_locations[$i]->getName() ? " selected=\"true\"" : "").">".esc_html($collateral_locations[$i]->getName())."</OPTION>\n";
                           }
                         ?>
                       </select>
@@ -307,9 +305,9 @@ if(isset($_SESSION['action_message']))
                                 else
                                   echo "          <TR>\n";
                                   
-                                echo "            <TD width=\"30\"><input type=\"checkbox\" name=\"object_collateral_ids[]\" value=\"".$collateral_selection_collateral->getId()."\"". ($collateral_selection_is_selected == true ? " checked=\"true\" disabled=\"true\"" : "") ." /></TD>\n";
-                                echo "            <TD><A href=\"javascript:void(0)\" OnClick=\"javascript:window.open('../" . $collateral_selection_collateral->getUrl() . "', 'collateral')\">" . $collateral_selection_collateral_name . "</A></TD>\n";
-                                echo "            <TD width=\"100\">" . $collateral_selection_collateral_location . "</TD>\n";
+                                echo "            <TD width=\"30\"><input type=\"checkbox\" name=\"object_collateral_ids[]\" value=\"".esc_attr($collateral_selection_collateral->getId())."\"". ($collateral_selection_is_selected == true ? " checked=\"true\" disabled=\"true\"" : "") ." /></TD>\n";
+                                echo "            <TD><A href=\"javascript:void(0)\" OnClick=\"javascript:window.open('../" . esc_attr($collateral_selection_collateral->getUrl()) . "', 'collateral')\">" . esc_html($collateral_selection_collateral_name) . "</A></TD>\n";
+                                echo "            <TD width=\"100\">" . esc_html($collateral_selection_collateral_location) . "</TD>\n";
                                 echo "          </TR>\n";
                               }
                             }
@@ -333,7 +331,7 @@ if(isset($_SESSION['action_message']))
                   <FORM NAME="upload_form" ID="upload_form" METHOD="POST" ACTION="admin.php?page=fm-collateral-page" enctype="multipart/form-data">
                   <input type="hidden" name="action" value="upload_collateral" /> 
                   <input type="hidden" name="action_id" value="<?php echo uniqid("delete"); ?>" />
-                  <input type="hidden" name="collateral_collection_type" value="<?php echo $collateral_collection_type ?>" />
+                  <input type="hidden" name="collateral_collection_type" value="<?php echo esc_attr($collateral_collection_type) ?>" />
                   <input type="hidden" name="MAX_FILE_SIZE" value="24000000" />
                   <TABLE width="80%" align="center">
               
@@ -341,7 +339,7 @@ if(isset($_SESSION['action_message']))
                       <TD>&nbsp;</TD><TD>&nbsp;</TD><TD>&nbsp;</TD>
                     </TR>
                     <TR>
-                      <TD colspan="3" align="center" class="label">Upload <?php echo $collateral_collection_name?> Collateral</TD>
+                      <TD colspan="3" align="center" class="label">Upload <?php echo esc_html($collateral_collection_name) ?> Collateral</TD>
                     </TR>
                     <TR>
                       <TD class="label">Collateral 1:</TD>

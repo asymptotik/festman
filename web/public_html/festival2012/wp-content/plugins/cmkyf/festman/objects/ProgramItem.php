@@ -132,11 +132,11 @@ class ProgramItem extends AbstractCollateralCollection
 			
 			if($selected_program_item_id == $row['ProgramItem_Id'])
 			{
-				$ret = $ret . "<OPTION value=\"" . $row['ProgramItem_Id'] . "\" selected=\"true\">" . addcslashes($row['Name'], '\'') . "</OPTION>";
+				$ret = $ret . "<option value=\"" . esc_attr($row['ProgramItem_Id']) . "\" selected=\"true\">" . esc_html($row['Name'], '\'') . "</option>";
 			}
 			else
 			{
-				$ret = $ret . "<OPTION value=\"" . $row['ProgramItem_Id'] . "\">" . addcslashes($row['Name'], '\'') . "</OPTION>";
+				$ret = $ret . "<option value=\"" . esc_attr($row['ProgramItem_Id']) . "\">" . esc_html($row['Name'], '\'') . "</option>";
 			}
 		}
 

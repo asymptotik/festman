@@ -73,7 +73,7 @@ class FmEventEventHandler extends FmEventHandler
   
   function getFallbackLocation()
   {
-  	return dirname(__FILE__) . "/event_editor.php";
+  	return dirname(__FILE__) . "/event_selector.php";
   }
   
   //
@@ -105,7 +105,7 @@ class FmEventEventHandler extends FmEventHandler
   //
   function handleDeleteEvents(EventContext $context)
   {
-  	$count = count(fmGetVal("event_ids"));
+  	$count = count(fmGetVar("event_ids"));
   	for($i = 0; $i < $count; $i++)
   	{
   		Event::deleteEvent(fmGetPost($_POST["event_ids"][$i]));
@@ -125,7 +125,7 @@ class FmEventEventHandler extends FmEventHandler
   //
   function handleDeleteEvent(EventContext $context)
   {
-  	Event::deleteEvent(fmGetVal("event_id"));
+  	Event::deleteEvent(fmGetVar("event_id"));
   
   	$context->addActionMessage("Deleted 1 Event.");
   	$context->setForward(dirname(__FILE__) . "/event_selector.php");
@@ -194,7 +194,7 @@ class FmEventEventHandler extends FmEventHandler
   {
   	if(isset($_SESSION['current_event']) == true)
   	{
-  		$program_program_item_id = fmGetVal('program_program_item_id');
+  		$program_program_item_id = fmGetVar('program_program_item_id');
   		
   		$event   = $this->storeCompleteEvent($context);
   		$program = $event->getProgram();
@@ -211,7 +211,7 @@ class FmEventEventHandler extends FmEventHandler
   //
   function handleEditEvent(EventContext $context)
   {
-  	$_SESSION['current_event'] = Event::getEvent(fmGetVal('event_id'));
+  	$_SESSION['current_event'] = Event::getEvent(fmGetVar('event_id'));
   	$context->setForward(dirname(__FILE__) . "/event_editor.php");
   }
   

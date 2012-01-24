@@ -16,33 +16,33 @@ require_once (dirname(__FILE__).'/admin_utils.php');
 
 if(isset($_SESSION['error_message']))
 {
-  echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".$_SESSION['error_message']."</TD></TR></TABLE><BR/>";
+  echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".esc_html($_SESSION['error_message'])."</TD></TR></TABLE><BR/>";
 }
 if(isset($_SESSION['action_message']))
 {
-  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".$_SESSION['action_message']."</TD></TR></TABLE>";
+  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".esc_html($_SESSION['action_message'])."</TD></TR></TABLE>";
 }
 
 $program_item_class = $_SESSION['current_program_item_class'];
 if(isset($program_item_class) == false)
 	$program_item_class = "Act";
 $object_class_display_name = ProgramItem::getObjectClassDisplayName($program_item_class);
-$program_item_class_page = 'fm-' . strtolower($program_item_class) . '-page';
+$program_item_class_page = 'fm-' . strtolower(esc_attr($program_item_class)) . '-page';
 ?>
 
 <div class="wrap">
-  <h2><?php echo $object_class_display_name; ?> Selector<a class="add-new-h2" href="admin.php?page=<?php echo $program_item_class_page; ?>&action=create_program_item&program_item_class=<?php echo $program_item_class; ?>">Add New</a></h2>
+  <h2><?php echo esc_html($object_class_display_name); ?> Selector<a class="add-new-h2" href="admin.php?page=<?php echo esc_attr($program_item_class_page); ?>&action=create_program_item&program_item_class=<?php echo esc_attr($program_item_class); ?>">Add New</a></h2>
   <table class="wp-list-table widefat fixed pages" callspacing="0">
   <thead>
     <tr>
-      <th class="manage-column lc-column"><?php echo $object_class_display_name; ?> Name</th>
+      <th class="manage-column lc-column"><?php echo esc_html($object_class_display_name); ?> Name</th>
       <th class="manage-column lc-column">Origin</th>
       <th class="manage-column lc-column">Collateral Count</th>
     </tr>
   </thead>
   <tfoot>
   <tr>
-    <th class="manage-column lc-column" style="" scope="col"><?php echo $object_class_display_name; ?> Name</th>
+    <th class="manage-column lc-column" style="" scope="col"><?php echo esc_html($object_class_display_name); ?> Name</th>
     <th class="manage-column lc-column" style="" scope="col">Origin</th>
     <th class="manage-column lc-column" style="" scope="col">Collateral Count</th>
   </tr>
@@ -68,27 +68,27 @@ $program_item_class_page = 'fm-' . strtolower($program_item_class) . '-page';
      <tr>
        <td class="column-name">
         <strong>
-          <a class="row-title" title="Edit ÒDocumentationÓ" href="admin.php?page=<?php echo $program_item_class_page; ?>&action=edit_program_item&program_item_id=<?php echo $program_item_id ?>&program_item_class=<?php echo $program_item_class; ?>"><?php echo stripslashes($program_item_name);?></a>
+          <a class="row-title" title="Edit ÒDocumentationÓ" href="admin.php?page=<?php echo esc_attr($program_item_class_page); ?>&action=edit_program_item&program_item_id=<?php echo esc_attr($program_item_id); ?>&program_item_class=<?php echo esc_attr($program_item_class); ?>"><?php echo esc_html($program_item_name);?></a>
         </strong>
         <br>
         <div class="row-actions">
           <span class="edit">
-            <a href="admin.php?page=<?php echo $program_item_class_page; ?>&action=edit_program_item&program_item_id=<?php echo $program_item_id ?>&program_item_class=<?php echo $program_item_class; ?>">Edit</a> |
+            <a href="admin.php?page=<?php echo esc_attr($program_item_class_page); ?>&action=edit_program_item&program_item_id=<?php echo esc_attr($program_item_id); ?>&program_item_class=<?php echo esc_attr($program_item_class); ?>">Edit</a> |
           </span>
           <span class="delete">
-            <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this Concert.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=$program_item_class_page&amp;action=delete_program_item&amp;program_item_id=$program_item_id&program_item_class=$program_item_class", 'delete-program-item_' . $program_item_id )  ?>">Delete</a>
+            <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this \'<?php echo esc_html($object_class_display_name); ?>\'.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=" . esc_attr($program_item_class_page) . "&amp;action=delete_program_item&amp;program_item_id=" . esc_attr($program_item_id) . "&program_item_class=" . esc_attr($program_item_class), 'delete-program-item_' . esc_attr($program_item_id) )  ?>">Delete</a>
           </span>
         </div>
       </td>
-      <td><?php echo $program_item_origin;?></td>
-      <td><?php echo $collateral_count;?></td>
+      <td><?php echo esc_html($program_item_origin);?></td>
+      <td><?php echo esc_html($collateral_count);?></td>
     </tr>
     
       
     <?php   } // endforeach ?>
   <?php } else { // endif ?>
     <tr class="no-items">
-      <td class="colspanchange" colspan="2">No Acts found.</td>
+      <td class="colspanchange" colspan="2">No <?php echo esc_html($object_class_display_name); ?> found.</td>
     </tr>
   <?php } ?>
   

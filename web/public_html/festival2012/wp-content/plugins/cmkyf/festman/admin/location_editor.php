@@ -52,9 +52,9 @@ var descriptionValidator = new fmValidator();
     descriptionValidator.addValidator(new fmRequiredValidator("Please enter a Description."));
     descriptionValidator.addValidator(new fmMaxLengthValidator(16384, "Description must have a length less that or equal to 16384."));
     
-function onSubmitLocationForm()
+function fmOnSubmitLocationForm()
 {
-    var form = document.forms["location_form"];
+    var form = document.forms["location-form"];
     
     var name = form.elements["location_name"].value;
     var url = form.elements["location_url"].value;
@@ -89,9 +89,9 @@ function onSubmitLocationForm()
     }
 }
 
-function onCancelLocationEditor()
+function fmOnCancelLocationEditor()
 {
-    var form = document.forms["location_form"];
+    var form = document.forms["location-form"];
     
     form.elements["action"].value = "cancel_location_editor";
     form.submit();
@@ -102,63 +102,246 @@ function onCancelLocationEditor()
 if(isset($_SESSION['current_location']))
 {
 	$location = $_SESSION['current_location'];
+  $fm_is_new = false;
 }
 else
 {
 	$location = new Location();
+  $fm_is_new = true;
 }
+
+$fm_page = 'fm-location-page';
+$location_name = $location->getName();
+
+if ( !$fm_is_new ) {
+  $heading = sprintf( __( '<a href="%s">Location</a> / Edit Location' ), 'admin.php?page=' . $fm_page );
+  $submit_text = __('Update Location');
+  $form = '<form name="location-form" id="location-form" method="post" action="admin.php?page=' . $fm_page . '">';
+  $nonce_action = 'update-location_' . $location->getId();
+} else {
+  $heading = sprintf( __( '<a href="%s">Location</a> / Add New Location' ), 'admin.php?page=' . $fm_page );
+  $submit_text = __('Add Location');
+  $form = '<form name="location-form" id="location-form" method="post" action="admin.php?page=' . $fm_page . '">';
+  $nonce_action = 'add-location';
+}
+
+require_once(ABSPATH . 'wp-admin/includes/meta-boxes.php');
+
+add_screen_option('layout_columns', array('max' => 2) );
+
+$user_ID = isset($user_ID) ? (int) $user_ID : 0;
 
 if(isset($_SESSION['error_message']))
 {
-	echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".$_SESSION['error_message']."</TD></TR></TABLE><BR/>";
+  echo "<TABLE align=\"center\" width=\"400\" class=\"border\"><TR><TD class=\"error\">".$_SESSION['error_message']."</TD></TR></TABLE><BR/>";
 }
-
-$collateral_collection_control = new CollateralCollectionControl($location, "location_form", "location");
-?>
-
-<TABLE CLASS="border pallet"><THEAD class="h1"><TR CLASS="border"><TD>&nbsp;Location Editor</TD></TR></THEAD>
-<TR><TD>&nbsp;</TD></TR>
-<TR><TD width="700" align="center">
-<FORM NAME="location_form" ID="location_form" METHOD="POST" ACTION="library/handler_location.php" enctype="multipart/form-data">
-	<input type="hidden" name="action" value="save_location"/>
-	<input type="hidden" name="action_id" value="<?php echo uniqid("delete"); ?>"/>
-    <input type="hidden" name="location_id" value="<?php echo $location->getId(); ?>"/>
-	<TABLE width="80%" align="center">
-	  <TR><TD class="label">Name:</TD><TD><INPUT type="text" name="location_name" size="50" value="<?php echo $location->getName(); ?>"/></TD></TR>
-	  <TR><TD class="label">Url:</TD><TD><INPUT type="text" name="location_url" size="50" value="<?php echo $location->getUrl(); ?>"/></TD></TR>
-	  <TR><TD class="label">Url Text:</TD><TD><INPUT type="text" name="location_url_text" size="50" value="<?php echo $location->getUrlText(); ?>"/></TD></TR>
-	  <TR><TD class="label">Map Url:</TD><TD><INPUT type="text" name="location_map_url" size="50" value="<?php echo $location->getMapUrl(); ?>"/></TD></TR>
-	  <TR><TD class="label">Map Url Text:</TD><TD><INPUT type="text" name="location_map_url_text" size="50" value="<?php echo $location->getMapUrlText(); ?>"/></TD></TR>
-	  <TR><TD class="label">Address:</TD><TD><INPUT type="text" name="location_address" size="50" value="<?php echo $location->getAddress(); ?>"/></TD></TR>
-	  <TR><TD class="label">City:</TD><TD><INPUT type="text" name="location_city" size="50" value="<?php echo $location->getCity(); ?>"/></TD></TR>
-	  <TR><TD class="label">State:</TD><TD><INPUT type="text" name="location_state" size="50" value="<?php echo $location->getState(); ?>"/></TD></TR>
-	  <TR><TD class="label">Zip Code:</TD><TD><INPUT type="text" name="location_zipcode" size="50" value="<?php echo $location->getZipCode(); ?>"/></TD></TR>
-	  <TR><TD class="label">Description:</TD><TD><TEXTAREA class="mceEditor" rows="10" cols="50" name="location_description"><?php echo $location->getDescription(); ?></TEXTAREA></TD></TR>
-	  
-		<TR>
-			<TD>&nbsp;</TD>
-		</TR>
-		<TR>
-			<TD class="label">Collateral:</TD>
-			<TD><?php $collateral_collection_control->render(); ?></TD>
-		</TR>
-		<TR>
-			<TD>&nbsp;</TD>
-		</TR>
-			
-	  <TR><TD colspan="2" align="right"><br>
-	    <BUTTON type="button" onClick="javascript:onCancelLocationEditor();">Cancel</BUTTON>
-	    <BUTTON type="button" onClick="javascript:onSubmitLocationForm();">OK</BUTTON><BR><BR>
-	  </TD></TR>
-	</TABLE>
-</FORM>
-</TD></TR></TABLE>
-<?php
-
 if(isset($_SESSION['action_message']))
 {
-	echo "<BR/><TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".$_SESSION['action_message']."</TD></TR></TABLE>";
+  echo "<TABLE align=\"center\" class=\"border\" WIDTH=\"400\"><TR><TD>".$_SESSION['action_message']."</TD></TR></TABLE>";
 }
 
+if ( !empty($form) )
+  echo $form;
+if ( !empty($link_added) )
+  echo $link_added;
+echo "\n";
+wp_nonce_field( esc_attr($nonce_action) ); echo "\n";
+?>
+
+  <div class="wrap">
+    <div id="icon-themes" class="icon32">
+      <br>
+    </div>
+    <h2><?php echo $heading; ?> <a href="admin.php?page='. <?php echo $fm_page; ?> .'&action=create_location" class="add-new-h2"><?php echo esc_html_x('Add New', 'location'); ?></a></h2>
+    <div id="poststuff" class="metabox-holder has-right-sidebar">
+    
+      <input type="hidden" name="action" value="save_location"/>
+      <input type="hidden" name="action_id" value="<?php echo uniqid("delete"); ?>"/>
+      <input type="hidden" name="location_id" value="<?php echo esc_attr($location->getId()); ?>"/>
+      <input type="hidden" id="user-id" name="user_ID" value="<?php echo (int) $user_ID ?>" /> 
+
+      <div id="side-info-column" class="inner-sidebar">
+        <div id="side-sortables" class="meta-box-sortables ui-sortable">
+          <div id="linksubmitdiv" class="postbox ">
+            <div class="handlediv" title="Click to toggle">
+              <br>
+            </div>
+            <h3 class="hndle">
+              <span><?php echo __('Save Location'); ?></span>
+            </h3>
+            <div class="inside">
+              <div id="submitlink" class="submitbox">
+                <div id="major-publishing-actions">
+                  <?php if(!$fm_is_new) { ?>
+                    <div id="delete-action">
+                      <a class="submitdelete" onclick="if ( confirm( 'You are about to delete this Location \'<?php echo esc_attr($location->getName()) ?>\'\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=$fm_page&amp;action=delete_location&amp;location_id=" . esc_attr($location->getId()), 'delete-location_' . esc_attr($location->getId()) )  ?>">Delete</a>
+                    </div>
+                  <?php } ?>
+                  <div id="publishing-action">
+                    <button onclick="javascript:fmOnSubmitLocationForm();" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save"><?php echo $submit_text; ?></button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="post-body">
+        <div id="post-body-content">
+          
+          <div id="namediv" class="stuffbox">
+            <h3>
+              <label for="name"><?php _e('Location') ?></label>
+            </h3>
+            <div class="inside">
+              <table class="form-table edit-concert concert-form-table">
+                <tr valign="top">
+                  <td class="first">Name:</td>
+                  <td><input name="location_name" type="text" size="50" value="<?php echo esc_attr($location->getName()); ?>" alt="name" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Url:</td>
+                  <td><input name="location_url" type="text" size="50" value="<?php echo esc_attr($location->getUrl())?>" alt="url" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Url Text:</td>
+                  <td><input name="location_url_text" type="text" size="50" value="<?php echo esc_attr($location->getUrlText())?>" alt="url text" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Map Url:</td>
+                  <td><input name="location_map_url" type="text" size="50" value="<?php echo esc_attr($location->getMapUrl())?>" alt="map url" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Map Url Text:</td>
+                  <td><input name="location_map_url_text" type="text" size="50" value="<?php echo esc_attr($location->getMapUrlText())?>" alt="map url text" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Address:</td>
+                  <td><input name="location_address" type="text" size="50" value="<?php echo esc_attr($location->getAddress())?>" alt="address" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">City:</td>
+                  <td><input name="location_city" type="text" size="50" value="<?php echo esc_attr($location->getCity())?>" alt="city" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">State:</td>
+                  <td><input name="location_state" type="text" size="50" value="<?php echo esc_attr($location->getState())?>" alt="state" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Zip Code:</td>
+                  <td><input name="location_zipcode" type="text" size="50" value="<?php echo esc_attr($location->getZipCode())?>" alt="zip code" /></td>
+                </tr>
+                <tr valign="top">
+                  <td class="first">Description:</td>
+                  <td><?php the_editor($location->getDescription(), "location_description", "location_zipcode", true); ?></td>
+                </tr>
+              </table>
+              <br>
+            </div>
+          </div>
+         
+          <div id="relateddiv" class="">
+            <h2>Collateral<a class="add-new-h2" href="admin.php?page=fm-collateral-page&action=add_collateral&collateral_collection_type=related_person">Add New</a></h2>
+              <table class="wp-list-table widefat fixed pages" callspacing="0">
+                <thead>
+                  <tr>
+                    <th class="manage-column lc-column">Name</th>
+                    <th class="manage-column lc-column">Sort Order</th>
+                    <th class="manage-column lc-column">Default</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th class="manage-column lc-column" style="" scope="col">Name</th>
+                  <th class="manage-column lc-column" style="" scope="col">Sort Order</th>
+                  <th class="manage-column lc-column" style="" scope="col">Default</th>
+                </tr>
+                </tfoot>
+                <tbody id="the-list">
+                    
+                    <?php
+                    
+                      $cc_object_collateral_list = &$location->getAllObject_Collateral();
+                      $location->sortObject_Collateral();
+                      $cc_object_collateral_count = count($cc_object_collateral_list);
+                      if($cc_object_collateral_count > 0)
+                      {
+                        for($i = 0; $i < $cc_object_collateral_count; $i++)
+                        {
+                          $cc_object_collateral = $cc_object_collateral_list[$i];
+                          $cc_collateral = $cc_object_collateral->getCollateral();
+                          $cc_collateral_id = $cc_collateral->getId();
+                          $cc_collateral_name = $cc_collateral->getName();
+                          $cc_object_collateral_sort_order = $cc_object_collateral->getSortOrder();
+                          $cc_object_collateral_is_default = $cc_object_collateral->getIsDefault();
+              
+                          $action_id = uniqid("remove");
+              
+                          //echo "<tr class=\"border\">".
+                          //"  <td><input type=\"hidden\" name=\"object_collateral_ids[]\" value=\"".$cc_collateral_id."\">\n".
+                          //"    <input type=\"checkbox\" name=\"object_collateral_checked_ids[]\" value=\"".$cc_collateral_id."\"></td>\n".
+                          //"  <td><a href=\"javascript:void(0)\" OnClick=\"javascript:window.open('../" . $cc_collateral->getUrl() . "', 'collateral')\">".$cc_collateral_name."</td>\n".
+                          //"  <td><input type=\"text\" name=\"object_collateral_sort_order[]\" size=\"3\" value=\"".$cc_object_collateral_sort_order."\"></td>\n".
+                          //"  <td><input type=\"radio\" name=\"object_collateral_default\" value=\"".$cc_collateral_id."\" ". ($cc_object_collateral_is_default == true ? "checked=\"true\"" : "") ."></td>\n".
+                          //"  <td>&nbsp;<a href=\"javascript:void(0);\" onClick=\"javascript:removeCollateral('".$this->form_name."', '".$cc_collateral_id."');\">remove</a></td>\n".
+                          //"</tr>\n";
+                     ?>
+
+                   <tr>
+                     <td class="column-name">
+                      <input type="hidden" name="object_collateral_ids[]" value="<?php echo esc_attr($cc_collateral_id); ?>">
+                      <strong>
+                        <a class="row-title" title="Edit ÒCollateralÓ" href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo esc_attr($cc_collateral_id); ?>"><?php echo esc_html($cc_collateral_name);?></a>
+                      </strong>
+                      <br>
+                      <div class="row-actions">
+                        <span class="edit">
+                          <a href="admin.php?page=fm-collateral-page&action=edit_collateral&collateral_id=<?php echo esc_attr($cc_collateral_id); ?>">Edit</a> |
+                        </span>
+                        <span class="remove">
+                          <a class="submitdelete" onclick="if ( confirm( 'You are about to remove this Collateral.\n \'Cancel\' to stop, \'OK\' to delete.' ) ) { return true;}return false;" href="<?php echo wp_nonce_url( "admin.php?page=fm-collateral-page&amp;action=remove_collateral&amp;object_collateral_id=" . esc_attr($cc_collateral_id), 'remove-collateral_' . esc_attr($cc_collateral_id) )  ?>">Remove</a>
+                        </span>
+                      </div>
+                    </td>
+                    <td><input type="text" name="object_collateral_sort_order[]" size="3" value="<?php echo esc_attr($cc_object_collateral_sort_order); ?>"></td>
+                    <td><input type="radio" name="object_collateral_default" value="<?php echo esc_attr($cc_collateral_id); ?>" <?php echo ($cc_object_collateral_is_default == true ? "checked=\"true\"" : ""); ?>"></td>
+                  </tr>
+                  
+                    
+                  <?php   } // endforeach ?>
+                <?php } else { // endif ?>
+                  <tr class="no-items">
+                    <td class="colspanchange" colspan="2">No Collateral found.</td>
+                  </tr>
+                <?php } ?>
+                
+                
+                    <?php
+                        //echo "<tr class=\"border\">".
+                        //"  <td><input type=\"checkbox\" name=\"program_item_ids[]\" value=\"".$program_item_id."\"</td>\n".
+                        //"  <td>".$program_item_name."&nbsp;(".$collateral_count.")</td>\n".
+                        //"  <td>&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0);\" onClick=\"javascript:editProgramItem('".$program_item_id."');\">edit</a></td>\n".
+                        //"  <td>&nbsp;<a href=\"javascript:void(0);\" onClick=\"javascript:deleteProgramItem('".$program_item_id."');\">delete</a></td>\n".
+                        //"</tr>\n";
+                    ?>
+                </tbody>
+              </table>
+      
+              <p>Collateral related to this item such as images, documents, etc.</p>
+          </div>
+          
+          <div id="postdiv" class="postarea"></div>
+          <div id="normal-sortables" class="meta-box-sortables"></div>
+          <input type="hidden" id="referredby" name="referredby" value="<?php echo esc_url(stripslashes(wp_get_referer())); ?>" />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<?php
 fmClearMessages();
 ?>

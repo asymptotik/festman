@@ -70,7 +70,7 @@ class FmLocationEventHandler extends FmEventHandler
   
   function getFallbackLocation()
   {
-  	return dirname(__FILE__) . "/location_editor.php";
+  	return dirname(__FILE__) . "/location_selector.php";
   }
   
   //
