@@ -1,0 +1,240 @@
+/* 
+    Document   : admin
+    Created on : Feb 11, 2012, 3:42:57 PM
+    Author     : Rick
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.collateraldiv
+{
+    margin-top: 30px;
+}
+
+.relateddiv
+{
+    margin-top: 30px;
+}
+
+.fm-scrollable {
+    height:300px;
+    overflow-y:auto;
+}
+
+.narrow_tablenav {
+    height: 30px;
+    margin: 6px 0 4px;
+    vertical-align: middle;
+}
+
+
+.narrowfat {
+	border-color: #dfdfdf;
+	background-color: #f9f9f9;
+}
+textarea.narrowfat {
+	background-color: #fff;
+}
+
+
+.narrowfat thead tr th,
+.narrowfat tfoot tr th {
+	background-color: #f1f1f1; /* Fallback */
+	background-image: -ms-linear-gradient(top, #f9f9f9, #ececec); /* IE10 */
+	background-image: -moz-linear-gradient(top, #f9f9f9, #ececec); /* Firefox */
+	background-image: -o-linear-gradient(top, #f9f9f9, #ececec); /* Opera */
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#ececec)); /* old Webkit */
+	background-image: -webkit-linear-gradient(top, #f9f9f9, #ececec); /* new Webkit */
+	background-image: linear-gradient(top, #f9f9f9, #ececec); /* proposed W3C Markup */
+}
+
+.narrowfat td,
+.narrowfat th {
+	border-top-color: #fff;
+	border-bottom-color: #dfdfdf;
+}
+
+.narrowfat th {
+	text-shadow: rgba(255,255,255,0.8) 0 1px 0;
+}
+
+.narrowfat td {
+	color: #555;
+}
+.narrowfat p,
+.narrowfat ol,
+.narrowfat ul {
+	color: #333;
+}
+
+.narrowfat thead tr th,
+.narrowfat tfoot tr th {
+	color: #333;
+}
+
+table.narrowfat span.delete a,
+table.narrowfat span.trash a,
+table.narrowfat span.spam a {
+	color: #bc0b0b;
+}
+
+
+table.narrowfat .delete a:hover,
+table.narrowfat .trash a:hover,
+table.narrowfat .spam a:hover {
+	color: #f00;
+}
+
+
+.narrowfat div.star img {
+	border-left: 1px solid #f9f9f9;
+	border-right: 1px solid #f9f9f9;
+}
+
+
+
+
+
+
+.narrowfat {
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 0px;
+	border-style: solid;
+}
+
+/* .narrowfat - main style for tables */
+.narrowfat {
+	border-spacing: 0;
+	width: 100%;
+	
+	margin: 0;
+}
+
+.narrowfat * {
+	word-wrap: break-word;
+}
+
+.narrowfat a {
+	text-decoration: none;
+}
+
+.narrowfat thead th:first-of-type {
+	-webkit-border-top-left-radius: 3px;
+	border-top-left-radius: 3px;
+}
+.narrowfat thead th:last-of-type {
+	-webkit-border-top-right-radius: 3px;
+	border-top-right-radius: 3px;
+}
+.narrowfat tfoot th:first-of-type {
+	-webkit-border-bottom-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.narrowfat tfoot th:last-of-type {
+	-webkit-border-bottom-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.narrowfat td,
+.narrowfat th {
+	border-width: 1px 0;
+	border-style: solid;
+}
+.narrowfat tfoot th {
+	border-bottom: none;
+}
+
+.narrowfat .no-items td {
+	border-bottom-width: 0;
+}
+
+.narrowfat td {
+	font-size: 12px;
+	padding: 4px 7px 2px;
+	vertical-align: top;
+}
+
+.narrowfat td p,
+.narrowfat td ol,
+.narrowfat td ul {
+	font-size: 12px;
+}
+
+.narrowfat th {
+	padding: 7px 7px 8px;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 14px;
+}
+
+.narrowfat th input {
+	margin: 0 0 0 8px;
+	padding: 0;
+	vertical-align: text-top;
+}
+
+.narrowfat .check-column,
+.narrowfat .sc-check-column {
+	width: 2.2em;
+	padding: 11px 0 0;
+	vertical-align: top;
+}
+
+.narrowfat tbody th.check-column,
+.narrowfat tbody th.sc-check-column{
+	padding: 9px 0 22px;
+}
+
+.narrowfat .num,
+.column-comments,
+.column-links,
+.column-posts {
+	text-align: center;
+}
+
+.narrowfat th#comments {
+	vertical-align: middle;
+}
+
+.narrowfat th {
+	font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
+}
+
+.narrowfat th,
+.narrowfat td {
+	overflow: hidden;
+}
+
+.narrowfat th {
+	font-weight: normal;
+}
+
+.narrowfat td p {
+	margin: 2px 0 0.8em;
+}
+
+.narrowfat .column-comment p {
+	margin: 0.6em 0;
+}
+
+.narrowfat th.sortable,
+.narrowfat th.sorted {
+	padding: 0;
+}
+
+.plugins-php .narrowfat tfoot th,
+.plugins-php .narrowfat tfoot td {
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+
+.fm-scroll-table
+{
+    border: #dfdfdf 1px solid;
+}

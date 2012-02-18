@@ -1,216 +1,205 @@
 <?php
 
-require_once dirname(__FILE__).'/PersistentObject.php';
+require_once dirname(__FILE__) . '/PersistentObject.php';
 
 class MimeType extends PersistentObject
 {
-	private $MimeType_Id = NULL;
-	private $Type = '';
-	private $SubType = '';
-	private $Description = NULL;
-	private $IsDirty = false;
-    
-	public static function getClassObjectTable()
-	{
-		return ObjectTable::getObjectTableByClassName("MimeType");
-	}
 
-	public static function getMimeType($mime_type_id)
-	{
-		global $fm_db;
-		
-		$query_string = "SELECT * from " . $fm_db->getMimeTypeTableName() . " WHERE MimeType_Id=".fmQueryValue($mime_type_id);
-		$result = mysql_query($query_string);
+    private $MimeType_Id = NULL;
+    private $Type = '';
+    private $SubType = '';
+    private $Description = NULL;
 
-		while($row = mysql_fetch_object($result, 'MimeType'))
-		{
-			return $row;
-		}
+    public static function getClassObjectTable()
+    {
+        return ObjectTable::getObjectTableByClassName("MimeType");
+    }
 
-		return NULL;
-	}
-	
-	public static function deleteMimeType($mime_type_id)
-	{
-		global $fm_db;
-		
-		$query_string = "DELETE from " . $fm_db->getMimeTypeTableName() . " WHERE MimeType_Id=".$mime_type_id;
+    public static function getMimeType($mime_type_id)
+    {
+        global $fm_db;
 
-		//echo $query_string . "<br/>";
+        $query_string = "SELECT * from " . $fm_db->getMimeTypeTableName() . " WHERE MimeType_Id=" . fmQueryValue($mime_type_id);
+        $result = mysql_query($query_string);
 
-		mysql_query($query_string);
-	}
-	
-	public function save()
-	{
-		$new_id = createOrUpdateMimeType($this);
-		
-		if($new_id > 0)
-		{
-			$this->MimeType_Id = $new_id;
-			$this->setIsDirty(false);
-		}
-	}
+        while ($row = mysql_fetch_object($result, 'MimeType'))
+        {
+            return $row;
+        }
 
-	public function isDirty()
-	{
-		return $this->IsDirty;
-	}
+        return NULL;
+    }
 
-	public function setIsDirty($value)
-	{
-		$this->IsDirty = $value;
-	}
+    public static function deleteMimeType($mime_type_id)
+    {
+        global $fm_db;
 
-	public function getId()
-	{
-		return $this->Collateral_Id;
-	}
+        $query_string = "DELETE from " . $fm_db->getMimeTypeTableName() . " WHERE MimeType_Id=" . $mime_type_id;
 
-	public function setId($value)
-	{
-		if(isset($value) == false || empty($value) == true)
-		{
-			$value = NULL;
-		}
+        //echo $query_string . "<br/>";
 
-		if($this->MimeType_Id != $value)
-		{
-			$this->setIsDirty(true);
-			$this->MimeType_Id = $value;
-		}
-	}
+        mysql_query($query_string);
+    }
 
-	public function getType()
-	{
-		return $this->Type;
-	}
+    public function save()
+    {
+        $new_id = createOrUpdateMimeType($this);
 
-	public function setType($value)
-	{
-		if($this->Type != $value)
-		{
-			$this->setIsDirty(true);
-			$this->Type = $value;
-		}
-	}
+        if ($new_id > 0)
+        {
+            $this->MimeType_Id = $new_id;
+            $this->setIsDirty(false);
+        }
+    }
 
-	public function getSubType()
-	{
-		return $this->SubType;
-	}
+    public function getId()
+    {
+        return $this->Collateral_Id;
+    }
 
-	public function setSubType($value)
-	{
-		if($this->SubType != $value)
-		{
-			$this->setIsDirty(true);
-			$this->SubType = $value;
-		}
-	}
-	
-	public function getDescription()
-	{
-		return $this->Description;
-	}
+    public function setId($value)
+    {
+        if (isset($value) == false || empty($value) == true)
+        {
+            $value = NULL;
+        }
 
-	public function setDescription($value)
-	{
-		if(isset($value) == false || empty($value) == true)
-		{
-			$value = NULL;
-		}
-		
-		if($this->Description != $value)
-		{
-			$this->setIsDirty(true);
-			$this->Description = $value;
-		}
-	}
+        if ($this->MimeType_Id != $value)
+        {
+            $this->setIsDirty(true);
+            $this->MimeType_Id = $value;
+        }
+    }
 
-	public function getObjectTable() 
-	{
-		return MimeType::getClassObjectTable();
-	}
+    public function getType()
+    {
+        return $this->Type;
+    }
+
+    public function setType($value)
+    {
+        if ($this->Type != $value)
+        {
+            $this->setIsDirty(true);
+            $this->Type = $value;
+        }
+    }
+
+    public function getSubType()
+    {
+        return $this->SubType;
+    }
+
+    public function setSubType($value)
+    {
+        if ($this->SubType != $value)
+        {
+            $this->setIsDirty(true);
+            $this->SubType = $value;
+        }
+    }
+
+    public function getDescription()
+    {
+        return $this->Description;
+    }
+
+    public function setDescription($value)
+    {
+        if (isset($value) == false || empty($value) == true)
+        {
+            $value = NULL;
+        }
+
+        if ($this->Description != $value)
+        {
+            $this->setIsDirty(true);
+            $this->Description = $value;
+        }
+    }
+
+    public function getObjectTable()
+    {
+        return MimeType::getClassObjectTable();
+    }
 
     public function getDisplayName()
-	{
-		return $this->getType()."/".$this->getSubType();
-	}
+    {
+        return $this->getType() . "/" . $this->getSubType();
+    }
 
-	public function getIsImage()
-	{
-		if($this->Type == "image")
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	public function getIsAudio()
-	{
-		if($this->Type == "audio")
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
+    public function getIsImage()
+    {
+        if ($this->Type == "image")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function getIsAudio()
+    {
+        if ($this->Type == "audio")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function getEditor()
-	{
-		return NULL;
-	}
+    {
+        return NULL;
+    }
 }
 
 function createOrUpdateMimeType(MimeType $mime_type)
 {
-	$ret = 0;
+    $ret = 0;
 
-	global $fm_db;
-	
-	$id          = fmQueryValue($mime_type->getId());
-	$type        = fmQueryValue($mime_type->getType());
-	$sub_type    = fmQueryValue($mime_type->getSubType());
-	$description = fmQueryValue($mime_type->getDescription());
-	
-	$description_value = ($description == NULL ? "NULL" : "'". $description .",");
-	
-	if($id != NULL)
-	{
-		// update
-		
-		$query_string = "UPDATE" . $fm_db->getMimeTypeTableName() . " Set Type='".$type."',SubType='".$sub_type."',Description=".$description_value." WHERE MimeType_Id=".$id;
-		
-		//echo "Query: " . $query_string;
-		
-		mysql_query($query_string);
-		$ret = $id;
-	}
-	else
-	{
-		$query_string = "INSERT INTO" . $fm_db->getMimeTypeTableName() . " (Type, SubType, Description) VALUES ('".$type."','".$sub_type."',".$description_value.")";
-		
-		//echo "Query: " . $query_string;
-				
-		mysql_query($query_string);
+    global $fm_db;
 
-		// now go get the id
+    $id = fmQueryValue($mime_type->getId());
+    $type = fmQueryValue($mime_type->getType());
+    $sub_type = fmQueryValue($mime_type->getSubType());
+    $description = fmQueryValue($mime_type->getDescription());
 
-		$query_string = "SELECT LAST_INSERT_ID()";
-		$result = mysql_query($query_string);
+    $description_value = ($description == NULL ? "NULL" : "'" . $description . ",");
 
-		while($row = mysql_fetch_array($result, MYSQL_NUM))
-		{
-			$ret = $row[0];
-		}
-	}
-	return $ret;
+    if ($id != NULL)
+    {
+        // update
+
+        $query_string = "UPDATE" . $fm_db->getMimeTypeTableName() . " Set Type='" . $type . "',SubType='" . $sub_type . "',Description=" . $description_value . " WHERE MimeType_Id=" . $id;
+
+        //echo "Query: " . $query_string;
+
+        mysql_query($query_string);
+        $ret = $id;
+    }
+    else
+    {
+        $query_string = "INSERT INTO" . $fm_db->getMimeTypeTableName() . " (Type, SubType, Description) VALUES ('" . $type . "','" . $sub_type . "'," . $description_value . ")";
+
+        //echo "Query: " . $query_string;
+
+        mysql_query($query_string);
+
+        // now go get the id
+
+        $query_string = "SELECT LAST_INSERT_ID()";
+        $result = mysql_query($query_string);
+
+        while ($row = mysql_fetch_array($result, MYSQL_NUM))
+        {
+            $ret = $row[0];
+        }
+    }
+    return $ret;
 }
-
 ?>

@@ -1,24 +1,37 @@
 <?php
+
 abstract class PersistentObject
 {
-	private $DoDelete = false;
-	
-	public function getDoDelete()
-	{
-		return $this->DoDelete;
-	}
-	
-	public function setDoDelete($value)
-	{
-		$this->DoDelete = $value;
-	}
-	
-	abstract public function getId();
-	
-	abstract public function getObjectTable();
+    protected $DoDelete = false;
+    protected $IsDirty = false;
 
-	abstract public function getDisplayName();
+    public function getDoDelete()
+    {
+        return $this->DoDelete;
+    }
 
-	abstract public function getEditor();
+    public function setDoDelete($value)
+    {
+        $this->DoDelete = $value;
+    }
+
+    public function isDirty()
+    {
+        return $this->IsDirty;
+    }
+
+    public function setIsDirty($value)
+    {
+        $this->IsDirty = $value;
+    }
+
+    abstract public function getId();
+
+    abstract public function getObjectTable();
+
+    abstract public function getDisplayName();
+
+    abstract public function getEditor();
 }
+
 ?>

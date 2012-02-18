@@ -1,195 +1,184 @@
 <?php
 
-require_once dirname(__FILE__).'/PersistentObject.php';
-require_once dirname(__FILE__).'/Location.php';
-require_once dirname(__FILE__).'/Event.php';
+require_once dirname(__FILE__) . '/PersistentObject.php';
+require_once dirname(__FILE__) . '/Location.php';
+require_once dirname(__FILE__) . '/Event.php';
 
 class CollateralLocation extends PersistentObject
 {
-	private $CollateralLocation_Id = NULL;
-	private $Name = '';
-	private $Location = '';
-	private $IsDirty = false;
-    
-	public static function getClassObjectTable()
-	{
-		return ObjectTable::getObjectTableByClassName("CollateralLocation");
-	}
-	
-	public static function getCollateralLocation($collateral_location_id)
-	{
-		global $fm_db;
-		$query_string = "SELECT * from " . $fm_db->getCollateralLocationTableName() . " WHERE CollateralLocation_Id=".fmQueryValue($collateral_location_id);
-		$result = mysql_query($query_string);
 
-		while($row = mysql_fetch_object($result, 'CollateralLocation'))
-		{
-			return $row;
-		}
+    private $CollateralLocation_Id = NULL;
+    private $Name = '';
+    private $Location = '';
 
-		return null;
-	}
-	
-	public static function getAllCollateralLocations()
-	{
-		global $fm_db;
-		$query_string = "SELECT * from " . $fm_db->getCollateralLocationTableName();
-		$result = mysql_query($query_string);
-		$ret = array();
+    public static function getClassObjectTable()
+    {
+        return ObjectTable::getObjectTableByClassName("CollateralLocation");
+    }
 
-		while($row = mysql_fetch_object($result, 'CollateralLocation'))
-		{
-			array_push($ret, $row);
-		}
+    public static function getCollateralLocation($collateral_location_id)
+    {
+        global $fm_db;
+        $query_string = "SELECT * from " . $fm_db->getCollateralLocationTableName() . " WHERE CollateralLocation_Id=" . fmQueryValue($collateral_location_id);
+        $result = mysql_query($query_string);
 
-		return $ret;
-	}
-	
-	public static function deleteCollateralLocation($collateral_location_id)
-	{
-		global $fm_db;
-		$query_string = "SELECT Url FROM " . $fm_db->getCollateralLocationTableName() . " WHERE CollateralLocation_Id=".fmQueryValue($collateral_id);
-		$result = mysql_query($query_string);
-		$collateral_location_url = "";
+        while ($row = mysql_fetch_object($result, 'CollateralLocation'))
+        {
+            return $row;
+        }
 
-		while($row = mysql_fetch_array($result, MYSQL_NUM))
-		{
-			$collateral_location_url = $row[0];
-		}
+        return null;
+    }
 
-		$query_string = "DELETE from " . $fm_db->getCollateralLocationTableName() . " WHERE CollateralLocation_Id=".fmQueryValue($collateral_location_id);
+    public static function getAllCollateralLocations()
+    {
+        global $fm_db;
+        $query_string = "SELECT * from " . $fm_db->getCollateralLocationTableName();
+        $result = mysql_query($query_string);
+        $ret = array();
 
-		//echo $query_string . "<br/>";
+        while ($row = mysql_fetch_object($result, 'CollateralLocation'))
+        {
+            array_push($ret, $row);
+        }
 
-		mysql_query($query_string);
+        return $ret;
+    }
 
-		$filename = $url_prefix . $collateral_url;
+    public static function deleteCollateralLocation($collateral_location_id)
+    {
+        global $fm_db;
+        $query_string = "SELECT Url FROM " . $fm_db->getCollateralLocationTableName() . " WHERE CollateralLocation_Id=" . fmQueryValue($collateral_id);
+        $result = mysql_query($query_string);
+        $collateral_location_url = "";
 
-		//echo $filename . "<br/>";
+        while ($row = mysql_fetch_array($result, MYSQL_NUM))
+        {
+            $collateral_location_url = $row[0];
+        }
 
-		if(file_exists($filename) == true)
-		{
-			unlink($filename);
-		}
-	}
+        $query_string = "DELETE from " . $fm_db->getCollateralLocationTableName() . " WHERE CollateralLocation_Id=" . fmQueryValue($collateral_location_id);
 
-	public function save()
-	{
-		$new_id = createOrUpdateCollateralLocation($this);
-		
-		if($new_id > 0)
-		{
-			$this->CollateralLocation_Id = $new_id;
-			$this->setIsDirty(false);
-		}
-	}
+        //echo $query_string . "<br/>";
 
-	public function isDirty()
-	{
-		return $this->IsDirty;
-	}
+        mysql_query($query_string);
 
-	public function setIsDirty($value)
-	{
-		$this->IsDirty = $value;
-	}
+        $filename = $url_prefix . $collateral_url;
 
-	public function getId()
-	{
-		return $this->CollateralLocation_Id;
-	}
+        //echo $filename . "<br/>";
 
-	public function setId($value)
-	{
-		if(isset($value) == false || empty($value) == true)
-		{
-			$value = NULL;
-		}
+        if (file_exists($filename) == true)
+        {
+            unlink($filename);
+        }
+    }
 
-		if($this->Collateral_Id != $value)
-		{
-			$this->setIsDirty(true);
-			$this->CollateralLocation_Id = $value;
-		}
-	}
+    public function save()
+    {
+        $new_id = createOrUpdateCollateralLocation($this);
 
-	public function getName()
-	{
-		return $this->Name;
-	}
+        if ($new_id > 0)
+        {
+            $this->CollateralLocation_Id = $new_id;
+            $this->setIsDirty(false);
+        }
+    }
 
-	public function setName($value)
-	{
-		if($this->Name != $value)
-		{
-			$this->setIsDirty(true);
-			$this->Name = $value;
-		}
-	}
+    public function getId()
+    {
+        return $this->CollateralLocation_Id;
+    }
 
-	public function getLocation()
-	{
-		return $this->Location;
-	}
+    public function setId($value)
+    {
+        if (isset($value) == false || empty($value) == true)
+        {
+            $value = NULL;
+        }
 
-	public function setLocation($value)
-	{
-		if($this->Location != $value)
-		{
-			$this->setIsDirty(true);
-			$this->Location = $value;
-		}
-	}
+        if ($this->Collateral_Id != $value)
+        {
+            $this->setIsDirty(true);
+            $this->CollateralLocation_Id = $value;
+        }
+    }
 
-	public function getObjectTable() 
-	{
-		return CollateralLocation::getClassObjectTable();
-	}
+    public function getName()
+    {
+        return $this->Name;
+    }
+
+    public function setName($value)
+    {
+        if ($this->Name != $value)
+        {
+            $this->setIsDirty(true);
+            $this->Name = $value;
+        }
+    }
+
+    public function getLocation()
+    {
+        return $this->Location;
+    }
+
+    public function setLocation($value)
+    {
+        if ($this->Location != $value)
+        {
+            $this->setIsDirty(true);
+            $this->Location = $value;
+        }
+    }
+
+    public function getObjectTable()
+    {
+        return CollateralLocation::getClassObjectTable();
+    }
 
     public function getDisplayName()
-	{
-		return $this->getName();
-	}
+    {
+        return $this->getName();
+    }
 
     public function getEditor()
-	{
-		return NULL;
-	}
+    {
+        return NULL;
+    }
 }
 
 function createOrUpdateCollateralLocation(CollateralLocation $collateral_location)
 {
-	global $fm_db;
-	
-	$ret = 0;
+    global $fm_db;
 
-	$id       = fmQueryValue($collateral->getId());
-	$name     = fmQueryValue($collateral->getName());
-	$location = fmQueryValue($collateral->geLocation());
-	
-	if($id != NULL)
-	{
-		// update
-		$query_string = "UPDATE " . $fm_db->getCollateralLocationTableName() . " Set Name='".$name."',Location='".$location."' WHERE CollateralLocation_Id=".$id;
-		mysql_query($query_string);
-		$ret = $id;
-	}
-	else
-	{
-		$query_string = "INSERT INTO " . $fm_db->getCollateralLocationTableName() . " (Name, Location) VALUES ('".$name."','".$location."')";
-		mysql_query($query_string);
+    $ret = 0;
 
-		// now go get the id
+    $id = fmQueryValue($collateral->getId());
+    $name = fmQueryValue($collateral->getName());
+    $location = fmQueryValue($collateral->geLocation());
 
-		$query_string = "SELECT LAST_INSERT_ID()";
-		$result = mysql_query($query_string);
+    if ($id != NULL)
+    {
+        // update
+        $query_string = "UPDATE " . $fm_db->getCollateralLocationTableName() . " Set Name='" . $name . "',Location='" . $location . "' WHERE CollateralLocation_Id=" . $id;
+        mysql_query($query_string);
+        $ret = $id;
+    }
+    else
+    {
+        $query_string = "INSERT INTO " . $fm_db->getCollateralLocationTableName() . " (Name, Location) VALUES ('" . $name . "','" . $location . "')";
+        mysql_query($query_string);
 
-		while($row = mysql_fetch_array($result, MYSQL_NUM))
-		{
-			$ret = $row[0];
-		}
-	}
-	return $ret;
+        // now go get the id
+
+        $query_string = "SELECT LAST_INSERT_ID()";
+        $result = mysql_query($query_string);
+
+        while ($row = mysql_fetch_array($result, MYSQL_NUM))
+        {
+            $ret = $row[0];
+        }
+    }
+    return $ret;
 }
-
 ?>

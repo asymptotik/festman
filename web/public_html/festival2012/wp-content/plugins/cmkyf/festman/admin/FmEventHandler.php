@@ -45,7 +45,7 @@ abstract class FmEventHandler
       {
          echo " Name: " . $n . " Value: " . $v . "<br/>";
       }
-      */
+   */
     if(!empty($fm_action))
     {
     	$fm_action_id = fmGetVar('action_id');
@@ -155,7 +155,7 @@ abstract class FmEventHandler
   //
   function storeCompleteEvent(EventContext $context)
   {
-    $event = storeEvent();
+    $event = $this->storeEvent();
     $program = $event->getProgram();
     if($program == NULL)
     {
