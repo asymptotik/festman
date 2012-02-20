@@ -1,46 +1,31 @@
 <?php
 /**
+ * The template for displaying all pages.
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site will use a
+ * different template.
+ *
  * @package WordPress
- * @subpackage Default_Theme
+ * @subpackage Twenty_Eleven
+ * @since Twenty Eleven 1.0
  */
 
 get_header(); ?>
 
-<!-- page -->
-<div id="content" class="narrowcolumn" role="main">
+		<div id="primary">
+			<div id="content" role="main">
 
-	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-	
-	<div class="post-panel c1-style">
+				<?php while ( have_posts() ) : the_post(); ?>
 
-		<div class="post" id="post-<?php the_ID(); ?>">
-		
-			<table class="page-panel-header">
-				<tr>
-					<td class="post-title"><h2><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2></td>
-					<td class="post-sep"></td>
-					<td class="post-time"><?php the_time('F jS, Y') ?> <!-- by <?php the_author() ?> --></td>
-				</tr>
-			</table>
-			<hr/>	
-			<div class="entry">
-				<?php the_content('<p class="serif">Read the rest of this page &raquo;</p>'); ?>
+					<?php get_template_part( 'content', 'page' ); ?>
 
-				<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
+					<?php comments_template( '', true ); ?>
 
-			</div>
-		</div>
-		
-	<?php endwhile; endif; ?>
-	<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
-	
-	</div>
-		
-	<?php comments_template(); ?>
-	
-</div>
+				<?php endwhile; // end of the loop. ?>
 
-<?php get_sidebar(); ?>
+			</div><!-- #content -->
+		</div><!-- #primary -->
 
 <?php get_footer(); ?>
-

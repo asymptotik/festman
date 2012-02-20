@@ -1,71 +1,156 @@
 <?php
 /**
+ * The Header for our theme.
+ *
+ * Displays all of the <head> section and everything up till <div id="main">
+ *
  * @package WordPress
- * @subpackage Default_Theme
+ * @subpackage Twenty_Eleven
+ * @since Twenty Eleven 1.0
  */
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" <?php language_attributes(); ?>>
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" <?php language_attributes(); ?>>
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" <?php language_attributes(); ?>>
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html <?php language_attributes(); ?>>
+    <!--<![endif]-->
+    <head>
+        <meta charset="<?php bloginfo('charset'); ?>" />
+        <meta name="viewport" content="width=device-width" />
+        <title><?php
+            /*
+            * Print the <title> tag based on what is being viewed.
+            */
+            global $page, $paged;
 
-<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
+            wp_title('|', true, 'right');
 
-<head profile="http://gmpg.org/xfn/11">
+            // Add the blog name.
+            bloginfo('name');
+
+            // Add the blog description for the home/front page.
+            $site_description = get_bloginfo('description', 'display');
+            if ($site_description && ( is_home() || is_front_page() ))
+                echo " | $site_description";
+
+            // Add a page number if necessary:
+            if ($paged >= 2 || $page >= 2)
+                echo ' | ' . sprintf(__('Page %s', 'twentyeleven'), max($paged, $page));
+            ?>
+        </title>
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+        <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_url'); ?>" />
+        <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+        <!--[if lt IE 9]>
+        <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <?php
+        /* We add some JavaScript to pages with the comment form
+         * to support sites with threaded comments (when in use).
+         */
+        if (is_singular() && get_option('thread_comments'))
+            wp_enqueue_script('comment-reply');
+
+        /* Always have wp_head() just before the closing </head>
+         * tag of your theme, or you will break many plugins, which
+         * generally use this hook to add elements to <head> such
+         * as styles, scripts, and meta tags.
+         */
+        wp_head();
+        ?>
+    </head>
+
+    <body <?php body_class(); ?>>
+        <div id="page" class="hfeed">
+            <header id="branding" role="banner">
+                <hgroup>
+                    <h1 id="site-title"><span><a href="<?php echo esc_url(home_url('/')); ?>" title="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>" rel="home"><?php bloginfo('name'); ?></a></span></h1>
+                    <h2 id="site-description"><?php bloginfo('description'); ?></h2>
+                </hgroup>
+
+                <div id="header_nav">
+                    <nav id="social" role="navigation">
+                        <div class="menu">
+                            <ul>
+                                <li class="page_item"><a id="menu_item_vimeo" title="Vimeo" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                                <li class="page_item"><a id="menu_item_lastfm" title="Last FM" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                                <li class="page_item"><a id="menu_item_twitter" title="Twitter" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                                <li class="current_page_item"><a id="menu_item_facebook" title="Facebook" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                            </ul>   
+                        </div>
+                        
+                        <?php cmkyf_email_signup_e(); ?>
+        
+                    </nav>
+
+                    <nav id="access" role="navigation">
+                        <h3 class="assistive-text"><?php _e('Main menu', 'twentyeleven'); ?></h3>
+                        <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff. */ ?>
+                        <div class="skip-link"><a class="assistive-text" href="#content" title="<?php esc_attr_e('Skip to primary content', 'twentyeleven'); ?>"><?php _e('Skip to primary content', 'twentyeleven'); ?></a></div>
+                        <div class="skip-link"><a class="assistive-text" href="#secondary" title="<?php esc_attr_e('Skip to secondary content', 'twentyeleven'); ?>"><?php _e('Skip to secondary content', 'twentyeleven'); ?></a></div>
+                        <?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu. The menu assiged to the primary position is the one used. If none is assigned, the menu with the lowest ID is used. */ ?>
+
+                        <?php $section = cmkyf_section(); ?>
+                        
+                        <div class="menu">
+                            <ul>
+                                <li class="<?php echo ($section === 'org' ? 'current_page_item' : 'page_item'); ?>"><a title="CMKY" href="<?php echo cmkyf_page_url('organization'); ?>">CMKY<div class="subtitle">organization</div></a></li>
+                                <li class="<?php echo ($section === 'events' ? 'current_page_item' : 'page_item'); ?>"><a title="Events" href="<?php echo cmkyf_page_url('events'); ?>">EVENTS<div class="subtitle">what's happening</div></a></li>
+                                <li class="<?php echo ($section === 'yesand' ? 'current_page_item' : 'page_item'); ?>"><a title="Yes And" href="<?php echo cmkyf_page_url('yesand'); ?>">YES AND<div class="subtitle">environment issues</div></a></li>
+                                <li class="<?php echo ($section === 'connect' ? 'current_page_item' : 'page_item'); ?>"><a title="Connect" href="<?php echo cmkyf_page_url('connect'); ?>">CONNECT<div class="subtitle">keep in thouch with cmky</div></a></li>
+                            </ul>   
+                        </div>
+                        <?php //wp_nav_menu(array('theme_location' => 'primary')); ?>
+                    </nav><!-- #access -->
+                </div>
+                
+                <!--
+                <?php
+                // Check to see if the header image has been removed
+                $header_image = get_header_image();
+                if (!empty($header_image)) :
+                    ?>
+                    <a href="<?php echo esc_url(home_url('/')); ?>">
+                        <?php
+                        // The header image
+                        // Check if this is a post or page, if it has a thumbnail, and if it's a big one
+                        if (is_singular() &&
+                                has_post_thumbnail($post->ID) &&
+                                ( /* $src, $width, $height */ $image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), array(HEADER_IMAGE_WIDTH, HEADER_IMAGE_WIDTH)) ) &&
+                                $image[1] >= HEADER_IMAGE_WIDTH) :
+                            // Houston, we have a new header image!
+                            echo get_the_post_thumbnail($post->ID, 'post-thumbnail');
+                        else :
+                            ?>
+                            <img src="<?php header_image(); ?>" width="<?php echo HEADER_IMAGE_WIDTH; ?>" height="<?php echo HEADER_IMAGE_HEIGHT; ?>" alt="" />
+                        <?php endif; // end check for featured image or standard header ?>
+                    </a>
+                <?php endif; // end check for removed header image ?>
+
+                  
+                <?php
+                // Has the text been hidden?
+                if ('blank' == get_header_textcolor()) :
+                    ?>
+                    <div class="only-search<?php if (!empty($header_image)) : ?> with-image<?php endif; ?>">
+                        <?php get_search_form(); ?>
+                    </div>
+                    <?php
+                else :
+                    ?>
+                    <?php get_search_form(); ?>
+                <?php endif; ?>
+                        -->
+
+                
+            </header><!-- #branding -->
 
 
-<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
-
-<title><?php wp_title('&laquo;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
-
-<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media="screen" />
-<link rel="stylesheet" href="<?php echo get_template_directory_uri() . "/css/dark-hive/jquery-ui-1.7.2.custom.css"; ?>" type="text/css" media="screen" />
-<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-<link rel="icon" type="image/gif" href="<?php echo get_template_directory_uri() . "/images/favicon.gif"?>"/></head>
-
-<script type="text/javascript">
-	var cmkyf_theme_url="<?php echo get_template_directory_uri() ?>";
-</script>
-
-<style type="text/css" media="screen">
-
-<?php
-// Checks to see whether it needs a sidebar or not
-if ( empty($withcomments) && !is_single() ) {
-?>
-	// #page { background: url("<?php bloginfo('stylesheet_directory'); ?>/images/kubrickbg-<?php bloginfo('text_direction'); ?>.jpg") repeat-y top; border: none; }
-<?php } else { // No sidebar ?>
-	// #page { background: url("<?php bloginfo('stylesheet_directory'); ?>/images/kubrickbgwide.jpg") repeat-y top; border: none; }
-<?php } ?>
-
-</style>
-
-<?php 
-if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); 
-wp_enqueue_script('jquery'); 
-wp_enqueue_script('jquery-ui-custom', get_template_directory_uri() . "/js/jquery-ui-1.7.2.custom.min.js"); 
-wp_enqueue_script('jquery-em', get_template_directory_uri() . "/js/jquery.em.min.js"); 
-wp_enqueue_script('j-scroll-pane', get_template_directory_uri() . "/js/jScrollPane-1.2.3.min.js"); 
-wp_enqueue_script('jquery-scroll-to', get_template_directory_uri() . "/js/jquery.scrollTo-min.js"); 
-?>
-
-<?php wp_head(); ?>
-</head>
-	<body <?php body_class(); ?>>
-	 
-		<div id="page">
-			<div id="main">
-				<div id="header" role="banner">
-					<a id="header-home" href="index.php">&nbsp;</a>
-					<div id="header-ext">
-						<a href="?page_id=2#about-297" class="btn-tickets"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>" alt="Tickets"></a>
-					</div>
-				</div>
-				
-				<div id="tabs-main" class="ui-tabs ui-widget">
-					<div id="tabs-1" class="tab-content ui-tabs-panel">
-						<div id="chart-nums-wrapper"><div id="chart-nums"></div></div>
-						<img id="world-map" class="alignleft" src="<?php echo cmkyf_image_url('11-world.png'); ?>" alt="World"/>
-						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header">
-							<li id="about-tab" class="ui-state-default"><a href="index.php?page_id=2">ABOUT</a><br/><img src="<?php echo cmkyf_image_url('11-ul-about.png'); ?>"/></li>
-							<li id="program-tab" class="ui-state-default"><a href="index.php?page_id=4">PROGRAM</a><br/><img src="<?php echo cmkyf_image_url('11-ul-program.png'); ?>"/></li>
-							<li id="blog-tab" class="ui-state-default"><a href="index.php?page_id=12">BLOG</a><br/><img src="<?php echo cmkyf_image_url('11-ul-blog.png'); ?>"/></li>
-							<li id="yesand-tab" class="ui-state-default"><a href="index.php?page_id=176">YES, <i>AND</i>...?</a><br/><img src="<?php echo cmkyf_image_url('11-ul-yes-and.png'); ?>"/></li>
-						</ul>
+            <div id="main">

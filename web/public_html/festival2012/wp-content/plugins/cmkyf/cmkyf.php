@@ -26,6 +26,8 @@
  */
 
 require dirname(__FILE__) . '/widgets/CmkyfRssWidget.php';
+require dirname(__FILE__) . '/widgets/CmkyfPageWidget.php';
+require dirname(__FILE__) . '/widgets/CmkyfPostsWidget.php';
 require dirname(__FILE__) . '/widgets/CmkyfMailingListWidget.php';
 require dirname(__FILE__) . '/festman/admin/install/database.php';
 
@@ -43,7 +45,9 @@ add_action('widgets_init', 'register_cmkyf_widgets');
 
 function register_cmkyf_widgets()
 {
+    register_widget('Cmkyf_Widget_Page');
     register_widget('Cmkyf_Widget_RSS');
+    register_widget('Cmkyf_Widget_Posts');
     register_widget('Cmkyf_Widget_Mailing_List');
 }
 add_action('admin_init', 'fm_admin_init');

@@ -46,7 +46,7 @@ class Cmkyf_Widget_RSS extends WP_Widget {
 		$url = esc_url(strip_tags($url));
 		$icon = WP_PLUGIN_URL . '/cmkyf/festman/images/rss.png';
 		if ( $title )
-			$title = "<a class='rsswidget rsswidget-icon' href='$url' title='" . esc_attr(__('Syndicate this content')) ."'><img width='20' height='20' src='$icon' alt='RSS' /></a><a class='rsswidget' href='$link' title='$desc'>$title</a>";
+			$title = "<a class='widget-icon' href='$url' title='" . esc_attr(__('Syndicate this content')) ."'><img width='20' height='20' src='$icon' alt='RSS' /></a><a class='rsswidget' href='$link' title='$desc'>$title</a>";
 
 		echo $before_widget;
 		if ( $title )
@@ -127,7 +127,7 @@ function cmkyf_widget_rss_output( $rss, $args = array() ) {
 			$title = __('Untitled');
 
 		$desc = str_replace(array("\n", "\r"), ' ', esc_attr(strip_tags(@html_entity_decode($item->get_description(), ENT_QUOTES, get_option('blog_charset')))));
-		$desc = wp_html_excerpt( $desc, 360 ) . ' [&hellip;]';
+		$desc = wp_html_excerpt( $desc, 75 ) . ' [&hellip;]';
 		$desc = esc_html( $desc );
 
 		if ( $show_summary ) {
