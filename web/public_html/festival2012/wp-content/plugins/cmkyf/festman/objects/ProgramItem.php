@@ -15,6 +15,8 @@ class ProgramItem extends AbstractCollateralCollection
     protected $Description = '';
     protected $Url = '';
     protected $UrlText = NULL;
+    protected $Embed = '';
+    protected $EmbedText = NULL;
     protected $ObjectClass = '';
     protected $RelatedPersons = NULL;
 
@@ -350,7 +352,7 @@ class ProgramItem extends AbstractCollateralCollection
             $this->ObjectClass = $value;
         }
     }
-
+    
     public function getUrl()
     {
         return $this->Url;
@@ -401,6 +403,34 @@ class ProgramItem extends AbstractCollateralCollection
         return $ret;
     }
 
+    public function getEmbed()
+    {
+        return $this->Embed;
+    }
+
+    public function setEmbed($value)
+    {
+        if ($this->Embed != $value)
+        {
+            $this->setIsDirty(true);
+            $this->Embed = $value;
+        }
+    }
+
+    public function getEmbedText()
+    {
+        return $this->EmbedText;
+    }
+
+    public function setEmbedText($value)
+    {
+        if ($this->EmbedText != $value)
+        {
+            $this->setIsDirty(true);
+            $this->EmbedText = (empty($value) || isset($value) == false ? NULL : $value);
+        }
+    }
+    
     public function getCollateralDirectory()
     {
         return strtolower(ProgramItem::getObjectClassDisplayName($this->getObjectClass()));
@@ -441,6 +471,8 @@ function createOrUpdateProgramItem(ProgramItem $program_item)
     $name = fmQueryValue($program_item->getName());
     $url = fmQueryValue($program_item->getUrl());
     $url_text = fmQueryValue($program_item->getUrlText());
+    $embed = fmQueryValue($program_item->getEmbed());
+    $embed_text = fmQueryValue($program_item->getEmbedText());
     $origin = fmQueryValue($program_item->getOrigin());
     $object_class = fmQueryValue($program_item->getObjectClass());
     $description = fmQueryValue($program_item->getDescription());
@@ -448,14 +480,14 @@ function createOrUpdateProgramItem(ProgramItem $program_item)
     if ($id != NULL)
     {
         // update
-        $query_string = "UPDATE " . $fm_db->getProgramItemTableName() . " Set Name='" . $name . "',Url='" . $url . "',UrlText='" . $url_text . "',Origin='" . $origin . "',ObjectClass='" . $object_class . "',Description='" . $description . "' WHERE ProgramItem_Id=" . $id;
+        $query_string = "UPDATE " . $fm_db->getProgramItemTableName() . " Set Name='" . $name . "',Url='" . $url . "',UrlText='" . $url_text . "',Embed='" . $embed . "',EmbedText='" . $embed_text . "',Origin='" . $origin . "',ObjectClass='" . $object_class . "',Description='" . $description . "' WHERE ProgramItem_Id=" . $id;
         mysql_query($query_string);
         $ret = $id;
     }
     else
     {
         // insert
-        $query_string = "INSERT INTO " . $fm_db->getProgramItemTableName() . " (Name, Url, UrlText, Origin, ObjectClass, Description) VALUES ('" . $name . "','" . $url . "','" . $url_text . "','" . $origin . "','" . $object_class . "','" . $description . "')";
+        $query_string = "INSERT INTO " . $fm_db->getProgramItemTableName() . " (Name, Url, UrlText, Embed, EmbedText, Origin, ObjectClass, Description) VALUES ('" . $name . "','" . $url . "','" . $url_text . "','" . $embed . "','" . $embed_text . "','". $origin . "','" . $object_class . "','" . $description . "')";
         mysql_query($query_string);
 
         // now go get the id

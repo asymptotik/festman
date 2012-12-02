@@ -27,6 +27,7 @@ class Cmkyf_Widget_Page extends WP_Widget
             return;
 
         $title = $instance['title'];
+        $link_to_page = (int)$instance['link_to_page'];
         $desc = '';
         $link = '';
 
@@ -52,8 +53,8 @@ class Cmkyf_Widget_Page extends WP_Widget
 
         $title = apply_filters('widget_title', $title);
 
-        if ($title)
-            $title = "<a class='cmkyf-page-widget' href='$link' title='$desc'>$title</a>";
+        if ($title && $link_to_page)
+            $title = "<a class='cmkyf-page-widget' href='$link' title='$desc'>$title</a>";  
 
         echo $before_widget;
         if ($title)
@@ -71,7 +72,7 @@ class Cmkyf_Widget_Page extends WP_Widget
     {
 
         if (empty($instance))
-            $instance = array('title' => '', 'page_name' => '', 'items' => 10, 'error' => false, 'show_summary' => 0, 'show_author' => 0, 'show_date' => 0);
+            $instance = array('title' => '', 'page_name' => '', 'items' => 10, 'error' => false, 'link_to_page' => 1, 'show_summary' => 0, 'show_author' => 0, 'show_date' => 0);
         $instance['number'] = $this->number;
 
         cmkyf_widget_page_form($instance);
@@ -89,10 +90,11 @@ class Cmkyf_Widget_Page extends WP_Widget
 function cmkyf_widget_page_output($post, $args = array())
 {
 
-    $default_args = array('show_author' => 0, 'show_date' => 0, 'show_summary' => 0);
+    $default_args = array('show_author' => 0, 'show_date' => 0, 'link_to_page' => 1, 'show_summary' => 0);
     $args = wp_parse_args($args, $default_args);
     extract($args, EXTR_SKIP);
 
+    $link_to_page = (int) $link_to_page;
     $show_summary = (int) $show_summary;
     $show_author = (int) $show_author;
     $show_date = (int) $show_date;
@@ -115,7 +117,7 @@ function cmkyf_widget_page_output($post, $args = array())
 function cmkyf_widget_page_form($args, $inputs = null)
 {
 
-    $default_inputs = array('page_name' => true, 'title' => true, 'show_summary' => true, 'show_author' => true, 'show_date' => true);
+    $default_inputs = array('page_name' => true, 'title' => true, 'link_to_page' => true, 'show_summary' => true, 'show_author' => true, 'show_date' => true);
     $inputs = wp_parse_args($inputs, $default_inputs);
     extract($args);
     extract($inputs, EXTR_SKIP);
@@ -123,6 +125,7 @@ function cmkyf_widget_page_form($args, $inputs = null)
     $number = esc_attr($number);
     $title = esc_attr($title);
     $page_name = esc_attr($page_name);
+    $link_to_page = (int) $link_to_page;
     $show_summary = (int) $show_summary;
     $show_author = (int) $show_author;
     $show_date = (int) $show_date;
@@ -137,6 +140,10 @@ function cmkyf_widget_page_form($args, $inputs = null)
             <input class="widefat" id="cmkyf-page-title-<?php echo $number; ?>" name="widget-cmkyf-page[<?php echo $number; ?>][title]" type="text" value="<?php echo $title; ?>" /></p>
     <?php endif;
     if ($inputs['items']) : ?>
+    <?php endif;
+    if ($inputs['link_to_page']) : ?>
+        <p><input id="cmkyf-page-link-to-page-<?php echo $number; ?>" name="widget-cmkyf-page[<?php echo $number; ?>][link_to_page]" type="checkbox" value="1" <?php if ($link_to_page) echo 'checked="checked"'; ?>/>
+            <label for="cmkyf-page-link-to-page-<?php echo $number; ?>"><?php _e('Use hyperlink to page?'); ?></label></p>
     <?php endif;
     if ($inputs['show_summary']) : ?>
         <p><input id="cmkyf-page-show-summary-<?php echo $number; ?>" name="widget-cmkyf-page[<?php echo $number; ?>][show_summary]" type="checkbox" value="1" <?php if ($show_summary) echo 'checked="checked"'; ?>/>
@@ -181,9 +188,10 @@ function cmkyf_widget_page_process($widget_page)
 {
     $page_name = trim(strip_tags($widget_page['page_name']));
     $title = trim(strip_tags($widget_page['title']));
+    $link_to_page = (int) $widget_page['link_to_page'];
     $show_summary = (int) $widget_page['show_summary'];
     $show_author = (int) $widget_page['show_author'];
     $show_date = (int) $widget_page['show_date'];
 
-    return compact('title', 'page_name', 'link', 'items', 'error', 'show_summary', 'show_author', 'show_date');
+    return compact('title', 'page_name', 'link', 'items', 'error', 'link_to_page', 'show_summary', 'show_author', 'show_date');
 }

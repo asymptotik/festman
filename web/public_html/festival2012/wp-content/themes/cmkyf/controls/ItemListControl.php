@@ -1,7 +1,7 @@
 <?php
 
 require_once CMKYF_PLUGIN_BASE_DIR . '/objects/IControl.php';
-require_once get_template_directory() . '/controls/ItemListing.php';
+require_once get_template_directory() . '/controls/ItemListingCompact.php';
 
 class ItemListControl implements IControl
 {
@@ -35,7 +35,7 @@ class ItemListControl implements IControl
             {
                 echo "<li>";
                 $item = $this->items[$itemIndex];
-                $item_listing = new ItemListing($item);
+                $item_listing = new ItemListingCompact($item);
                 $item_listing->render();
                 echo "</li>\n";
             }

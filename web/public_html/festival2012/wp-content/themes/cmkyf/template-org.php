@@ -7,42 +7,47 @@
  * @subpackage cmkyf
  * @since cmkyf 1.0
  */
+$slug = basename(get_permalink());
 
 cmkyf_set_section('org');
-get_header(); ?>
-		<div id="primary">
-			<div id="content" role="main">
+cmkyf_set_subsection($slug);
 
-			<?php if ( have_posts() ) : ?>
+get_header();
+cmkyf_include('menu-organization.php');
+?>
+<div id="primary">
+    <div id="content" role="main">
 
-				<?php twentyeleven_content_nav( 'nav-above' ); ?>
+        <?php if (have_posts()) : ?>
 
-				<?php /* Start the Loop */ ?>
-				<?php while ( have_posts() ) : the_post(); ?>
+            <?php twentyeleven_content_nav('nav-above'); ?>
 
-					<?php get_template_part( 'content', get_post_format() ); ?>
+            <?php /* Start the Loop */ ?>
+            <?php while (have_posts()) : the_post(); ?>
 
-				<?php endwhile; ?>
+                <?php get_template_part('content', get_post_format()); ?>
 
-				<?php twentyeleven_content_nav( 'nav-below' ); ?>
+            <?php endwhile; ?>
 
-			<?php else : ?>
+            <?php twentyeleven_content_nav('nav-below'); ?>
 
-				<article id="post-0" class="post no-results not-found">
-					<header class="entry-header">
-						<h1 class="entry-title"><?php _e( 'Nothing Found', 'twentyeleven' ); ?></h1>
-					</header><!-- .entry-header -->
+        <?php else : ?>
 
-					<div class="entry-content">
-						<p><?php _e( 'Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'twentyeleven' ); ?></p>
-						<?php get_search_form(); ?>
-					</div><!-- .entry-content -->
-				</article><!-- #post-0 -->
+            <article id="post-0" class="post no-results not-found">
+                <header class="entry-header">
+                    <h1 class="entry-title"><?php _e('Nothing Found', 'twentyeleven'); ?></h1>
+                </header><!-- .entry-header -->
 
-			<?php endif; ?>
+                <div class="entry-content">
+                    <p><?php _e('Apologies, but no results were found for the requested archive. Perhaps searching will help find a related post.', 'twentyeleven'); ?></p>
+                    <?php get_search_form(); ?>
+                </div><!-- .entry-content -->
+            </article><!-- #post-0 -->
 
-			</div><!-- #content -->
-		</div><!-- #primary -->
+        <?php endif; ?>
+
+    </div><!-- #content -->
+</div><!-- #primary -->
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

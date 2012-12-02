@@ -1,44 +1,48 @@
 <?php
-require_once CMKYF_PLUGIN_BASE_DIR.'/objects/Event.php';
 
-class EventListControl
+require_once CMKYF_PLUGIN_BASE_DIR . '/objects/IControl.php';
+require_once get_template_directory() . '/controls/EventListingCompact.php';
+
+class EventListControl implements IControl
 {
-	private $events = NULL;
-	
-	public function __construct(array $events)
-	{
-		$this->events = $events;
-	}
-	
-	public function getDefaultId()
-	{
-		$ret = -1;
-		
-		if(isset($this->events) && count($this->events) > 0)
-		{
-			$event = $this->events[0];
-			$ret = $event->getId();
-		}
-		
-		return $ret;
-	}
-	
-	public function render()
-	{
-		if(count($this->events) > 1)
-		{
-			echo "<div class=\"scroll-pane\">\n";
-			echo "<ul class=\"sub-menu\">\n";
-			for($eventIndex = 0; $eventIndex < count($this->events); $eventIndex++)
-			{
-				$event = $this->events[$eventIndex];
 
-			    echo "<li><a href=\"#event-" . $event->getId() . "\" rel=\"history\">" . $event->getName() . "</a></li>\n";
-			}
+    private $events = NULL;
 
-			echo "</ul>\n";
-			echo "</div>\n";
-		}
-	}
+    public function __construct(array $events)
+    {
+        $this->events = $events;
+    }
+
+    public function getDefaultId()
+    {
+        $ret = -1;
+
+        if (isset($this->events) && count($this->events) > 0)
+        {
+            $event = $this->events[0];
+            $ret = $event->getId();
+        }
+
+        return $ret;
+    }
+
+    public function render()
+    {
+        if (count($this->events) > 1)
+        {
+            echo "<ul class=\"cf-events\">\n";
+            for ($eventIndex = 0; $eventIndex < count($this->events); $eventIndex++)
+            {
+                echo "<li>";
+                $event = $this->events[$eventIndex];
+                $event_listing = new EventListingCompact($event);
+                $event_listing->render();
+                echo "</li>\n";
+            }
+
+            echo "</ul>\n";
+        }
+    }
 }
+
 ?>

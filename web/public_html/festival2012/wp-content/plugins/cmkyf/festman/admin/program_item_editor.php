@@ -50,6 +50,12 @@ $object_class_display_name = ProgramItem::getObjectClassDisplayName($program_ite
     var urlTextValidator = new fmValidator();
     urlTextValidator.addValidator(new fmMaxLengthValidator(128, "Url must have a text length less that or equal to 128."));
     
+    var embedValidator = new fmValidator();
+    embedValidator.addValidator(new fmMaxLengthValidator(512, "Embed must have a length less that or equal to 512."));
+    
+    var embedTextValidator = new fmValidator();
+    embedTextValidator.addValidator(new fmMaxLengthValidator(128, "Embed must have a text length less that or equal to 128."));
+    
     var originValidator = new fmValidator();
     originValidator.addValidator(new fmMaxLengthValidator(128, "Origin must have a length less that or equal to 128."));
     
@@ -67,6 +73,8 @@ $object_class_display_name = ProgramItem::getObjectClassDisplayName($program_ite
         var name = form.elements["program_item_name"].value;
         var url = form.elements["program_item_url"].value;
         var url_text = form.elements["program_item_url_text"].value;
+        var embed = form.elements["program_item_embed"].value;
+        var embed_text = form.elements["program_item_embed_text"].value;
         var origin = form.elements["program_item_origin"].value;
         var editor = tinyMCE.get("program_item_description");
         var description = editor.getContent();
@@ -76,6 +84,8 @@ $object_class_display_name = ProgramItem::getObjectClassDisplayName($program_ite
         var errorString = nameValidator.validate(name);
         errorString = fmAppendLine(errorString, urlValidator.validate(url));
         errorString = fmAppendLine(errorString, urlTextValidator.validate(url_text));
+        errorString = fmAppendLine(errorString, embedValidator.validate(embed));
+        errorString = fmAppendLine(errorString, embedTextValidator.validate(embed_text));
         errorString = fmAppendLine(errorString, originValidator.validate(origin));
         errorString = fmAppendLine(errorString, descriptionValidator.validate(description));
     
@@ -287,9 +297,16 @@ echo "\n";
                             </tr>
                             <tr valign="top">
                                 <td class="first">Url Text:</td>
-                                <td><input name="program_item_url_text" type="text" maxlength="100" value="<?php echo esc_attr($program_item->getUrlText()) ?>" alt="url" /></td>
+                                <td><input name="program_item_url_text" type="text" maxlength="100" value="<?php echo esc_attr($program_item->getUrlText()) ?>" alt="url text" /></td>
                             </tr>
-
+                            <tr valign="top">
+                                <td class="first">Embed:</td>
+                                <td><input name="program_item_embed" type="text" maxlength="500" value="<?php echo esc_attr($program_item->getEmbed()) ?>" alt="embed" /></td>
+                            </tr>
+                            <tr valign="top">
+                                <td class="first">Embed Text:</td>
+                                <td><input name="program_item_embed_text" type="text" maxlength="100" value="<?php echo esc_attr($program_item->getEmbedText()) ?>" alt="embed text" /></td>
+                            </tr>
                         </table>
                         <br>
                     </div>

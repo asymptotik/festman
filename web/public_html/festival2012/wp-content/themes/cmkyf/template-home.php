@@ -36,8 +36,11 @@ wp_enqueue_script('cmkyf-home');
     foreach ($headers as $header) { 
 
         $header_url = sprintf( $header['url'], get_template_directory_uri(), get_stylesheet_directory_uri() ); 
-  
-        echo '<div id="spot-' . $n . '" class="spotlight image-' . $n . '"' . ($n > 0 ? ' style="display:none;"' : '') . '><img src="' . $header_url . '"/></div>' . "\n";
+        $header_action = $header['action'];
+        if(substr_compare("/", $header_action, 0, 1) == 0)
+            $header_action =  get_bloginfo ('url') . $header_action;
+
+        echo '<div id="spot-' . $n . '" class="spotlight image-' . $n . '"' . ($n > 0 ? ' style="display:none;"' : '') . '><a href="' . $header_action . '"><img src="' . $header_url . '"/></a></div>' . "\n";
                  
         $n++;
     } ?>

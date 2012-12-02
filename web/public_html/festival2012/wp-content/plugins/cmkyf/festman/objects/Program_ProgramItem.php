@@ -37,6 +37,22 @@ class Program_ProgramItem extends PersistentObject
         mysql_query($query_string);
     }
 
+    public static function getProgram_ProgramItems($program_id, $program_item_id)
+    {
+        global $fm_db;
+        $query_string = "SELECT * from " . $fm_db->getProgram_ProgramItemTableName() . " WHERE Program_Id="  . $program_id . " AND ProgramItem_Id=" . $program_item_id . " ORDER BY StartTime";
+
+        $result = mysql_query($query_string);
+        $ret = array();
+
+        while ($row = mysql_fetch_object($result, 'Program_ProgramItem'))
+        {
+            array_push($ret, $row);
+        }
+
+        return $ret;
+    }
+    
     public function validate()
     {
         $error_message = '';

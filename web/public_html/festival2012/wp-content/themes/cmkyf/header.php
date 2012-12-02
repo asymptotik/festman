@@ -45,9 +45,13 @@
                 echo ' | ' . sprintf(__('Page %s', 'twentyeleven'), max($paged, $page));
             ?>
         </title>
+        <script type="text/javascript">
+            var cmkyf_theme_url="<?php echo get_template_directory_uri() ?>";
+        </script>
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_url'); ?>" />
         <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+        <link rel="icon" type="image/gif" href="<?php echo get_template_directory_uri() . "/images/favicon.gif"?>"/></head>
         <!--[if lt IE 9]>
         <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
         <![endif]-->
@@ -68,23 +72,41 @@
     </head>
 
     <body <?php body_class(); ?>>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=428242693869462";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
         <div id="page" class="hfeed">
             <header id="branding" role="banner">
                 <hgroup>
                     <h1 id="site-title"><span><a href="<?php echo esc_url(home_url('/')); ?>" title="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>" rel="home"><?php bloginfo('name'); ?></a></span></h1>
                     <h2 id="site-description"><?php bloginfo('description'); ?></h2>
                 </hgroup>
-
+                <div id="header-tickets">
+                    <a title="Tickets" href="<?php echo cmkyf_page_url('festival/tickets'); ?>"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a>
+                </div>
                 <div id="header_nav">
                     <nav id="social" role="navigation">
                         <div class="menu">
                             <ul>
-                                <li class="page_item"><a id="menu_item_vimeo" title="Vimeo" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
-                                <li class="page_item"><a id="menu_item_lastfm" title="Last FM" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
-                                <li class="page_item"><a id="menu_item_twitter" title="Twitter" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
-                                <li class="current_page_item"><a id="menu_item_facebook" title="Facebook" href="#"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                               
+                                <li class="page_item"><a id="menu_item_twitter" title="Twitter" target="_blank" href="http://twitter.com/communikey"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                                <li class="page_item"><a id="menu_item_facebook" title="Facebook" target="_blank" href="http://www.facebook.com/communikey"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                                <li class="page_item"><a id="menu_item_vimeo" title="Vimeo" target="_blank" href="http://vimeo.com/user936197"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                                <li class="page_item"><a id="menu_item_lastfm" title="Last FM" target="_blank" href="http://www.last.fm/user/communikey"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
+                                <li class="page_item"><a id="menu_item_mixcloud" title="Mix Cloud" target="_blank" href="http://www.mixcloud.com/cmky"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
                             </ul>   
                         </div>
+                        
+                        
+                        
+                        
+	
+
                         
                         <?php cmkyf_email_signup_e(); ?>
         
@@ -101,10 +123,11 @@
                         
                         <div class="menu">
                             <ul>
-                                <li class="<?php echo ($section === 'org' ? 'current_page_item' : 'page_item'); ?>"><a title="CMKY" href="<?php echo cmkyf_page_url('organization'); ?>">CMKY<div class="subtitle">organization</div></a></li>
-                                <li class="<?php echo ($section === 'events' ? 'current_page_item' : 'page_item'); ?>"><a title="Events" href="<?php echo cmkyf_page_url('events'); ?>">EVENTS<div class="subtitle">what's happening</div></a></li>
-                                <li class="<?php echo ($section === 'yesand' ? 'current_page_item' : 'page_item'); ?>"><a title="Yes And" href="<?php echo cmkyf_page_url('yesand'); ?>">YES AND<div class="subtitle">environment issues</div></a></li>
-                                <li class="<?php echo ($section === 'connect' ? 'current_page_item' : 'page_item'); ?>"><a title="Connect" href="<?php echo cmkyf_page_url('connect'); ?>">CONNECT<div class="subtitle">keep in thouch with cmky</div></a></li>
+                                <li class="<?php echo ($section === 'org' ? 'current_page_item' : 'page_item'); ?>"><a title="CMKY" href="<?php echo cmkyf_page_url('cmky/organization'); ?>">CMKY<div class="subtitle">organization</div></a></li>
+                                <li class="<?php echo ($section === 'festival' ? 'current_page_item' : 'page_item'); ?>"><a title="Festival" href="<?php echo cmkyf_page_url('festival'); ?>">FESTIVAL<div class="subtitle">interdisciplinary arts</div></a></li>
+                                <!-- li class="<?php echo ($section === 'events' ? 'current_page_item' : 'page_item'); ?>"><a title="Events" href="<?php echo cmkyf_page_url('events'); ?>">EVENTS<div class="subtitle">what's happening</div></a></li -->
+                                <li class="<?php echo ($section === 'yesand' ? 'current_page_item' : 'page_item'); ?>"><a title="Yes And" href="<?php echo cmkyf_page_url('yes-and/overview'); ?>">YES AND<div class="subtitle">designing our future</div></a></li>
+                                <li class="<?php echo ($section === 'connect' ? 'current_page_item' : 'page_item'); ?>"><a title="Connect" href="<?php echo cmkyf_page_url('connect'); ?>">CONNECT<div class="subtitle">keep in contact</div></a></li>
                             </ul>   
                         </div>
                         <?php //wp_nav_menu(array('theme_location' => 'primary')); ?>

@@ -85,7 +85,7 @@ class Cmkyf_Widget_Posts extends WP_Widget
                 $excerpt = get_the_excerpt();
                 $date = get_the_date();
                 
-                echo '<li><a href="' . esc_attr($permalink) . '" title="' . esc_attr($title) . '">'. esc_html($title) . '</a><div class="content">' . esc_html($excerpt) . '</div><time>' . esc_html($date) . '</time></li>' . "\n";
+                echo '<li><a href="' . esc_attr($permalink) . '" title="' . esc_attr($title) . '">'. esc_html($title) . '</a><div class="content">' . $excerpt . '</div><time>' . esc_html($date) . '</time></li>' . "\n";
             }
             echo '</ul>';
             echo $after_widget; 

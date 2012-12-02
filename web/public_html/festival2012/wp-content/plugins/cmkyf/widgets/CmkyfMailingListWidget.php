@@ -66,19 +66,17 @@ function cmkyf_widget_list_output( $args = array() ) {
 	$args = wp_parse_args( $args, $default_args );
 	extract( $args, EXTR_SKIP );
 	
-	echo '<form method=post action="https://app.icontact.com/icp/signup.php" name="icpsignup" id="icpsignup554" accept-charset="UTF-8" >'. "\n";
-	echo '  <input type=hidden name=redirect value="http://www.communikey.us/festival2011/?page_id=504#about-504" />'. "\n";
-	echo '  <input type=hidden name=errorredirect value="http://www.communikey.us/festival2011/?page_id=510#about-510" />'. "\n";
-	echo '  <div id="cmky-mailinglist">'. "\n";
-	echo '    <span><input name="fields_email" type="text" id="ltxtMailingList" /><input type="button" class="ui-corner-all" onClick="cmkyf_submitToMailingList();" name="subscribe" id="lbtnSubmit" value="ok" /></span>'. "\n";
-	echo '  </div>'. "\n";
-	echo '  <input type=hidden name="listid" value="3888">'. "\n";
-	echo '  <input type=hidden name="specialid:3888" value="G7NV">'. "\n";
-	echo '  <input type=hidden name=clientid value="734261">'. "\n";
-	echo '  <input type=hidden name=formid value="554">'. "\n";
-	echo '  <input type=hidden name=reallistid value="1">'. "\n";
-	echo '  <input type=hidden name=doubleopt value="1">'. "\n";
-	echo '</form>'. "\n";
+	echo '<form id="ccsfg" name="ccsfg" method="post" action="' . get_template_directory_uri() . '/ccontact/signup/index.php' . '">';
+        echo '  <div id="cmky_mailinglist">' . "\n";
+        echo '    <input type="text" name="EmailAddress" value="" id="EmailAddress" /><input type="button" name="signup" id="signup" value="ok" />';
+        echo '  </div>' . "\n";
+                //   <!-- ########## Contact Lists ########## -->
+        echo '    <input type="hidden"  checked="checked"  value="CMKY general" name="Lists[]" id="list_CMKY general" />';
+                //<!-- ########## Success / Failure Redirects ########## -->
+        echo '    <input type="hidden" name="SuccessURL" value="http://communikey.us/festival2012/connect/email-list-thanks" />';
+        echo '    <input type="hidden" name="FailureURL" value="http://communikey.us/festival2012/connect/email-list-error" />';
+        echo '    <input type="submit" name="signup" id="signup" value="Join My Mailing List" />';
+        echo '</form>' . "\n";
 
 	Cmkyf_Widget_Mailing_List_Script::init();
 }

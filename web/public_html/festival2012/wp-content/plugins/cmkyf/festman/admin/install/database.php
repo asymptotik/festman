@@ -273,9 +273,11 @@ function cmkyf_install_database()
       `Name` varchar(256) default NULL,
       `Description` varchar(16384) default NULL,
       `Url` varchar(256) default NULL,
+      `UrlText` varchar(128) default NULL,
+      `Embed` varchar(512) default NULL,
+      `EmbedText` varchar(128) default NULL,
       `ObjectClass` varchar(16) NOT NULL,
       `Origin` varchar(128) default NULL,
-      `UrlText` varchar(128) default NULL,
       PRIMARY KEY  (`ProgramItem_Id`)
     ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;';
 

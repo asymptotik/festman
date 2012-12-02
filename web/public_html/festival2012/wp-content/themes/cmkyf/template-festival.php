@@ -7,9 +7,46 @@
  * @subpackage cmkyf
  * @since cmkyf 1.0
  */
-cmkyf_set_section('events');
+cmkyf_set_section('festival');
+cmkyf_set_subsection('overview');
 get_header();
-cmkyf_festival_menu();
+wp_enqueue_script('cmkyf-festival');
+?>
+
+<div class="spotlight-wrapper">
+    <nav class="spotlight-nav">
+        <div class="spot-0" rel=".image-0"></div>
+        <div class="spot-1" rel=".image-1"></div>
+        <div class="spot-2" rel=".image-2"></div>
+        <div class="spot-3" rel=".image-3"></div>
+        <div class="spot-4" rel=".image-4"></div>
+        <div class="spot-5" rel=".image-5"></div>
+        <div class="spot-6" rel=".image-6"></div>
+        <div class="spot-7" rel=".image-7"></div>
+        <div class="spot-8" rel=".image-8"></div>
+        <div class="spot-9" rel=".image-9"></div>
+        <div class="spot-10" rel=".image-10"></div>
+        <div class="spot-11" rel=".image-11"></div>
+    </nav>
+
+    
+    <div id="spot-0" class="spotlight image-0" ><img src="<?php echo cmkyf_image_url('headers-fest/BlackBox.jpg'); ?>"/></div>
+    <div id="spot-1" class="spotlight image-1" style="display:none;"><img src="<?php echo cmkyf_image_url('headers-fest/MarkMcguire.jpg'); ?>"/></div>
+    <div id="spot-2" class="spotlight image-2" style="display:none;"><img src="<?php echo cmkyf_image_url('headers/fest-mountains.png'); ?>"/></div>
+    <div id="spot-3" class="spotlight image-3" style="display:none;"><img src="<?php echo cmkyf_image_url('headers-fest/Parade.jpg'); ?>"/></div>
+    <div id="spot-4" class="spotlight image-4" style="display:none;"><img src="<?php echo cmkyf_image_url('headers-fest/Pulshar.jpg'); ?>"/></div>
+    <div id="spot-5" class="spotlight image-5" style="display:none;"><img src="<?php echo cmkyf_image_url('headers/fest-beach.png'); ?>"/></div>
+    <div id="spot-6" class="spotlight image-6" style="display:none;"><img src="<?php echo cmkyf_image_url('headers-fest/WilliamBasinkski.jpg'); ?>"/></div>
+    <div id="spot-7" class="spotlight image-7" style="display:none;"><img src="<?php echo cmkyf_image_url('headers-fest/KidsPatch.jpg'); ?>"/></div>
+    <div id="spot-8" class="spotlight image-8" style="display:none;"><img src="<?php echo cmkyf_image_url('headers/fest-boat.png'); ?>"/></div>
+    <div id="spot-9" class="spotlight image-9" style="display:none;"><img src="<?php echo cmkyf_image_url('headers-fest/XavierVanWersch.jpg'); ?>"/></div>
+    <div id="spot-10" class="spotlight image-10" style="display:none;"><img src="<?php echo cmkyf_image_url('headers-fest/YesAnd.jpg'); ?>"/></div>
+    <div id="spot-11" class="spotlight image-11" style="display:none;"><img src="<?php echo cmkyf_image_url('headers/fest-jungle.png'); ?>"/></div>
+
+</div>
+
+<?php
+cmkyf_include('menu-festival.php');
 ?>
 
 <div id="primary">

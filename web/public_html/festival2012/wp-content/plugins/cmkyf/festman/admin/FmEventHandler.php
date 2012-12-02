@@ -108,6 +108,8 @@ abstract class FmEventHandler
     $program_item->setOrigin(fmGetPost($_POST['program_item_origin']));
     $program_item->setUrl(fmGetPost($_POST['program_item_url']));
     $program_item->setUrlText(fmGetPost($_POST['program_item_url_text']));
+    $program_item->setEmbed(fmGetPost($_POST['program_item_embed']));
+    $program_item->setEmbedText(fmGetPost($_POST['program_item_embed_text']));
     $program_item->setDescription(fmGetPost($_POST['program_item_description']));
   
     //echo "program item: " . serialize($program_item);

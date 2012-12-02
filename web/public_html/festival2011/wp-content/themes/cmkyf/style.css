@@ -902,7 +902,7 @@ a.page-details-link, a.page-details-link:visited {
 	height: 126px;
 	width: 100px;
 	float: left;
-	margin: 0 12px 0 14px;
+	margin: 0 12px 0 0px;
 	background-image: url(images/sustainability-icon-sprites.png);
 }
 

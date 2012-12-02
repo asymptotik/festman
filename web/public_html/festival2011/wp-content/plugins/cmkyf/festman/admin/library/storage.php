@@ -14,6 +14,8 @@ function storeProgramItem()
 	$program_item->setOrigin(getPost($_POST['program_item_origin']));
 	$program_item->setUrl(getPost($_POST['program_item_url']));
 	$program_item->setUrlText(getPost($_POST['program_item_url_text']));
+        $program_item->setEmbed(getPost($_POST['program_item_embed']));
+	$program_item->setEmbedText(getPost($_POST['program_item_embed_text']));
 	$program_item->setDescription(getPost($_POST['program_item_description']));
 
 	return $program_item;
