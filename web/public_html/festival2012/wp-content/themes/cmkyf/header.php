@@ -45,9 +45,6 @@
                 echo ' | ' . sprintf(__('Page %s', 'twentyeleven'), max($paged, $page));
             ?>
         </title>
-        <script type="text/javascript">
-            var cmkyf_theme_url="<?php echo get_template_directory_uri() ?>";
-        </script>
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_url'); ?>" />
         <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
@@ -69,6 +66,10 @@
          */
         wp_head();
         ?>
+        
+        <script type="text/javascript">
+            var cmkyf_theme_url="<?php echo get_template_directory_uri() ?>";
+        </script>
     </head>
 
     <body <?php body_class(); ?>>
@@ -101,13 +102,7 @@
                                 <li class="page_item"><a id="menu_item_mixcloud" title="Mix Cloud" target="_blank" href="http://www.mixcloud.com/cmky"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a></li>
                             </ul>   
                         </div>
-                        
-                        
-                        
-                        
-	
 
-                        
                         <?php cmkyf_email_signup_e(); ?>
         
                     </nav>

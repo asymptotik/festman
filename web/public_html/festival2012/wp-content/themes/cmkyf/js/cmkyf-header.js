@@ -1,9 +1,9 @@
 (function($) {
     
     $(document).ready(function() {
-        $('#EmailAddress').watermark('email list');
-        $('#signup').click(function () {
-            $('#ccsfg').submit();
+        $('#mce-EMAIL').watermark('email list');
+        $('#mc-embedded-subscribe').click(function () {
+            $('#mc-embedded-subscribe-form').submit();
         });
     });
     

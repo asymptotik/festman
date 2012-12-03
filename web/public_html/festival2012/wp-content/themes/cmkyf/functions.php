@@ -649,6 +649,25 @@ function cmky_register_scripts()
 }
 add_action('wp_enqueue_scripts', 'cmky_register_scripts');
 
+if (!function_exists('cmkyf_add_googleanalytics')):
+    function cmkyf_add_googleanalytics() { ?>
+        <script type="text/javascript">
+            //Google analytics
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-36764019-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+        </script>
+    <?php } 
+endif;
+add_action('wp_footer', 'cmkyf_add_googleanalytics');
+
 function cmkyf_image_url($image)
 {
     return get_template_directory_uri() . '/images/' . $image;
@@ -666,7 +685,24 @@ function cmkyf_page_url($page)
 
 function cmkyf_email_signup_e()
 {
-    echo '<form id="ccsfg" name="ccsfg" method="post" action="' . get_template_directory_uri() . '/ccontact/signup/index.php' . '">';
+    /*
+     * Mail Chimp
+     */
+    echo '<div id="mc_embed_signup">';
+    echo '<form action="http://communikey.us6.list-manage.com/subscribe/post?u=b1a1e43077ae717f80d89d6a0&amp;id=23d3d64842" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>';
+    echo '  <div id="cmky_mailinglist">' . "\n";
+    echo '      <input type="text" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><input type="button" name="subscribe" id="mc-embedded-subscribe" value="ok" />';
+    echo '  </div>' . "\n";
+    echo '<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>';
+    echo '</form>';
+    echo '</div>';
+    echo '<!--End mc_embed_signup-->';
+
+    /*
+     * icontact
+     */
+    /*
+        echo '<form id="ccsfg" name="ccsfg" method="post" action="' . get_template_directory_uri() . '/ccontact/signup/index.php' . '">';
     echo '  <div id="cmky_mailinglist">' . "\n";
     echo '    <input type="text" name="EmailAddress" value="" id="EmailAddress" /><input type="button" name="signup" id="signup" value="ok" />';
     echo '  </div>' . "\n";
@@ -676,8 +712,12 @@ function cmkyf_email_signup_e()
     echo '    <input type="hidden" name="SuccessURL" value="http://communikey.us/festival2012/connect/email-list-thanks" />';
     echo '    <input type="hidden" name="FailureURL" value="http://communikey.us/festival2012/connect/email-list-error" />';
     echo '</form>';
+    */
+    
+    
     
     /*
+     * php list
     echo '<form method=post action="https://app.icontact.com/icp/signup.php" name="icpsignup" id="icpsignup554" accept-charset="UTF-8" >' . "\n";
     echo '  <input type=hidden name=redirect value="http://www.communikey.us/festival2012/connect/email-list-thanks" />' . "\n";
     echo '  <input type=hidden name=errorredirect value="http://www.communikey.us/festival2012/connect/email-list-error" />' . "\n";
