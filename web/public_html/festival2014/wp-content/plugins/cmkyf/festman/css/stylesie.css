@@ -1,0 +1,20 @@
+
+#artist_block {
+	 top:350px;
+}
+
+#venue_block {
+	margin-left:68px;
+	position:relative;
+	top:-274px;
+}
+
+#venue_event {
+	clear:both;
+	padding-top:0;
+}
+
+#venue_list_content{
+	margin-top:20px
+}
+

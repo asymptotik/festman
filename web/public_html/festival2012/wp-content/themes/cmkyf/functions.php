@@ -151,33 +151,33 @@ if (!function_exists('cmkyf_setup')):
         // Default custom headers packaged with the theme. %s is a placeholder for the theme template directory URI.
         register_default_headers(array(
             'festival_02' => array(
-                'url' => '%s/images/headers/fest-jungle.jpg',
-                'thumbnail_url' => '%s/images/headers/fest-jungle-thumb.png',
+                'url' => '%s/images/headers/CMY_NYE_WEB_BANNER_123112_1.jpg',
+                'thumbnail_url' => '%s/images/headers/CMY_NYE_WEB_BANNER_123112_1-240x86.jpg',
                 /* translators: header image description */
                 'description' => __('Festival 2012 Jungle', 'twentyeleven'),
-                'action' => '/festival'
-            ),
+                'action' => 'http://www.facebook.com/events/251534761640357/'
+            )/*,
             'festival_01' => array(
                 'url' => '%s/images/headers/fest-mountains.jpg',
                 'thumbnail_url' => '%s/images/headers/fest-mountains-thumb.png',
-                /* translators: header image description */
+                // translators: header image description
                 'description' => __('Festival 2012 Mountains', 'twentyeleven'),
                 'action' => '/festival'
             ),
             'wheel' => array(
                 'url' => '%s/images/headers/fest-boat.jpg',
                 'thumbnail_url' => '%s/images/headers/fest-boat-thumb.png',
-                /* translators: header image description */
+                // translators: header image description 
                 'description' => __('Festival 2012 Boat', 'twentyeleven'),
                 'action' => '/festival'
             ),
             'shore' => array(
                 'url' => '%s/images/headers/fest-beach.jpg',
                 'thumbnail_url' => '%s/images/headers/fest-beach-thumb.png',
-                /* translators: header image description */
+                // translators: header image description 
                 'description' => __('Festival 2012 Beach', 'twentyeleven'),
                 'action' => '/festival'
-            )
+            )*/
         ));
     }
 endif; // twentyeleven_setup
@@ -634,7 +634,7 @@ function cmky_register_scripts()
     wp_register_script('jquery-fancybox', get_template_directory_uri() . '/js/jquery.fancybox.js', array('jquery'), "2.0.3", true);
     wp_register_script('jquery-fancybox-buttons', get_template_directory_uri() . '/js/jquery.fancybox-buttons.js', array('jquery-fancybox'), "2.0.4", true);
     wp_register_script('jquery-fancybox-thumbs', get_template_directory_uri() . '/js/jquery.fancybox-thumbs.js', array('jquery-fancybox'), "2.0.4", true);
-    wp_register_script('jquery-address', get_template_directory_uri() . '/js/jquery.address-1.4.min.js', array('jquery'), "1.4", true);
+    wp_register_script('jquery-address', get_template_directory_uri() . '/js/jquery.address-1.5.min.js', array('jquery'), "1.5", true);
     wp_register_script('cmkyf-home', get_template_directory_uri() . '/js/cmkyf-home.js', array('jquery-spotlight'), "1.0", true);
     wp_register_script('cmkyf-festival', get_template_directory_uri() . '/js/cmkyf-festival.js', array('jquery-spotlight'), "1.0", true);
     wp_register_script('cmkyf-page-management', get_template_directory_uri() . '/js/cmkyf-page-management.js', array('jquery-address', 'jquery-fancybox', 'jquery-fancybox-buttons', 'jquery-fancybox-thumbs'), "1.0", true);
@@ -648,25 +648,6 @@ function cmky_register_scripts()
     wp_enqueue_script('cmkyf-header');
 }
 add_action('wp_enqueue_scripts', 'cmky_register_scripts');
-
-if (!function_exists('cmkyf_add_googleanalytics')):
-    function cmkyf_add_googleanalytics() { ?>
-        <script type="text/javascript">
-            //Google analytics
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-36764019-1']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
-        </script>
-    <?php } 
-endif;
-add_action('wp_footer', 'cmkyf_add_googleanalytics');
 
 function cmkyf_image_url($image)
 {
@@ -693,7 +674,6 @@ function cmkyf_email_signup_e()
     echo '  <div id="cmky_mailinglist">' . "\n";
     echo '      <input type="text" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><input type="button" name="subscribe" id="mc-embedded-subscribe" value="ok" />';
     echo '  </div>' . "\n";
-    echo '<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>';
     echo '</form>';
     echo '</div>';
     echo '<!--End mc_embed_signup-->';
@@ -743,31 +723,63 @@ function cmkyf_email_signup_e()
     */
 function cmkyf_get_header_images()
 {
+    $default = defined( 'HEADER_IMAGE' ) ? HEADER_IMAGE : '';
+    $url = get_theme_mod( 'header_image', $default );
+    $headers = array();
+    
+    if ( 'remove-header' == $url )
+	return false;
+    
     global $_wp_default_headers;
 
-    $header_image_mod = get_theme_mod('header_image', '');
-    $headers = array();
-
-    if ('random-uploaded-image' == $header_image_mod)
-        $headers = get_uploaded_header_images();
-    elseif (!empty($_wp_default_headers))
+    if ( is_random_header_image() )
     {
-        if ('random-default-image' == $header_image_mod)
+        $header_image_mod = get_theme_mod('header_image', '');
+
+        if ('random-uploaded-image' == $header_image_mod)
+            $headers = get_uploaded_header_images();
+        elseif (!empty($_wp_default_headers))
         {
-            $headers = $_wp_default_headers;
-        }
-        else
-        {
-            $is_random = get_theme_support('custom-header');
-            if (isset($is_random[0]) && !empty($is_random[0]['random-default']))
+            if ('random-default-image' == $header_image_mod)
             {
                 $headers = $_wp_default_headers;
             }
+            else
+            {
+                $is_random = get_theme_support('custom-header');
+                if (isset($is_random[0]) && !empty($is_random[0]['random-default']))
+                {
+                    $headers = $_wp_default_headers;
+                }
+            }
         }
     }
-
+    else if(empty($url) == false)
+    {
+        $headers['header_image'] = array( 'url' => $url );
+    }
+    
     return $headers;
 }
+/*
+function get_header_image() {
+	$default = defined( 'HEADER_IMAGE' ) ? HEADER_IMAGE : '';
+	$url = get_theme_mod( 'header_image', $default );
+
+	if ( 'remove-header' == $url )
+		return false;
+
+	if ( is_random_header_image() )
+		$url = get_random_header_image();
+
+	if ( is_ssl() )
+		$url = str_replace( 'http://', 'https://', $url );
+	else
+		$url = str_replace( 'https://', 'http://', $url );
+
+	return esc_url_raw( $url );
+}*/
+
 
 function cmkyf_set_section($section)
 {

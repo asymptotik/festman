@@ -1,0 +1,21 @@
+[15-Dec-2013 00:45:55 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[15-Dec-2013 00:55:51 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[15-Dec-2013 01:05:52 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[17-Dec-2013 09:45:49 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[09-Jan-2014 21:10:34 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[23-Jan-2014 00:56:34 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[23-Jan-2014 04:36:40 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[24-Jan-2014 19:19:42 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[04-Mar-2014 19:15:15 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[04-Mar-2014 19:17:42 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[04-Mar-2014 19:20:05 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[04-Mar-2014 19:20:25 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[04-Mar-2014 19:23:20 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[04-Mar-2014 21:02:16 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[04-Mar-2014 23:48:29 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[04-Mar-2014 23:48:41 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[05-Mar-2014 00:30:04 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[05-Mar-2014 00:31:40 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[05-Mar-2014 00:32:10 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[05-Mar-2014 00:34:38 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[05-Mar-2014 00:45:27 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130

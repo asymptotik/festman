@@ -30,12 +30,21 @@ wp_enqueue_script('cmkyf-home');
 
     </nav>
 
-    <?php 
+    <?php
     $headers = cmkyf_get_header_images();
     $n = 0;
     foreach ($headers as $header) { 
 
+       
         $header_url = sprintf( $header['url'], get_template_directory_uri(), get_stylesheet_directory_uri() ); 
+        
+        if ( is_ssl() )
+		$header_url = str_replace( 'http://', 'https://', $header_url );
+	else
+		$header_url = str_replace( 'https://', 'http://', $header_url );
+        
+        $header_url = esc_url_raw( $header_url );
+        
         $header_action = $header['action'];
         if(substr_compare("/", $header_action, 0, 1) == 0)
             $header_action =  get_bloginfo ('url') . $header_action;

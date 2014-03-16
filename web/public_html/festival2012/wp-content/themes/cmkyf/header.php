@@ -87,9 +87,9 @@
                     <h1 id="site-title"><span><a href="<?php echo esc_url(home_url('/')); ?>" title="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>" rel="home"><?php bloginfo('name'); ?></a></span></h1>
                     <h2 id="site-description"><?php bloginfo('description'); ?></h2>
                 </hgroup>
-                <div id="header-tickets">
+                <!-- div id="header-tickets">
                     <a title="Tickets" href="<?php echo cmkyf_page_url('festival/tickets'); ?>"><img src="<?php echo cmkyf_image_url('clear.gif'); ?>"/></a>
-                </div>
+                </div -->
                 <div id="header_nav">
                     <nav id="social" role="navigation">
                         <div class="menu">
