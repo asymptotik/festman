@@ -115,7 +115,7 @@ if (!function_exists('cmkyf_setup')):
         add_theme_support('post-formats', array('aside', 'link', 'gallery', 'status', 'quote', 'image'));
 
         // Add support for custom backgrounds
-        add_theme_support( 'custom-background');
+        add_custom_background();
 
         // This theme uses Featured Images (also known as post thumbnails) for per-post/per-page Custom Header images
         add_theme_support('post-thumbnails');
@@ -145,7 +145,7 @@ if (!function_exists('cmkyf_setup')):
 
         // Add a way for the custom header to be styled in the admin panel that controls
         // custom headers. See twentyeleven_admin_header_style(), below.
-        add_theme_support( 'custom-header', array('cmkyf_header_style', 'cmkyf_admin_header_style', 'cmkyf_admin_header_image'));
+        add_custom_image_header('cmkyf_header_style', 'cmkyf_admin_header_style', 'cmkyf_admin_header_image');
 
         // ... and thus ends the changeable header business.
         // Default custom headers packaged with the theme. %s is a placeholder for the theme template directory URI.

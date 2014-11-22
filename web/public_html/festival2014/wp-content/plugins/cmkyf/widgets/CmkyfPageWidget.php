@@ -10,7 +10,7 @@ class Cmkyf_Widget_Page extends WP_Widget
     function Cmkyf_Widget_Page()
     {
         $widget_ops = array('description' => __('Use a page as the content of a widget'));
-        $control_ops = array(); //array('width' => 200, 'height' => 200);
+        //$control_ops = array('width' => 200, 'height' => 200);
         $this->WP_Widget('cmkyf-page', __('CMKYF Page'), $widget_ops, $control_ops);
     }
 

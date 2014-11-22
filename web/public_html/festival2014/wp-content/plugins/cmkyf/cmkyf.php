@@ -76,7 +76,7 @@ add_action('admin_head', 'fm_admin_head');
 
 function fm_admin_head()
 {
-    //wp_tiny_mce();
+    wp_tiny_mce();
 }
 add_action('admin_menu', 'cmkyf_plugin_menu');
 

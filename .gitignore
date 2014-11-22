@@ -69,6 +69,9 @@ web/public_html/festival2014/wp-content/*
 !web/public_html/festival2014/wp-content/themes/
 web/public_html/festival2014/wp-content/plugins/*
 !web/public_html/festival2014/wp-content/plugins/adrotator.php
+!web/public_html/festival2014/wp-content/plugins/cmkyf_pass_photo.php
+!web/public_html/festival2014/wp-content/plugins/twitter-widget-pro
+!web/public_html/festival2014/wp-content/plugins/cms-tree-page-view
 !web/public_html/festival2014/wp-content/plugins/cmkyf/
 web/public_html/festival2014/wp-content/plugins/cmkyf/festman/upload
 web/public_html/festival2014/wp-content/themes/*

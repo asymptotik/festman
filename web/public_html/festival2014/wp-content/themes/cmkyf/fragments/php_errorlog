@@ -19,3 +19,8 @@
 [05-Mar-2014 00:32:10 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
 [05-Mar-2014 00:34:38 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
 [05-Mar-2014 00:45:27 UTC] PHP Warning:  defined() expects parameter 1 to be string, object given in /home/communik/public_html/festival2014/wp-content/themes/cmkyf/controls/ItemListingFull.php on line 130
+[09-Mar-2014 01:12:47 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[22-Mar-2014 20:00:00 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[04-Apr-2014 17:25:06 UTC] PHP Warning:  mysql_fetch_object(): supplied argument is not a valid MySQL result resource in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/Event.php on line 29
+[10-Apr-2014 12:04:42 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87
+[10-Apr-2014 12:04:53 UTC] PHP Fatal error:  Class '' not found in /home/communik/public_html/festival2014/wp-content/plugins/cmkyf/festman/objects/ProgramItem.php on line 87

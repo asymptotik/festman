@@ -33,7 +33,6 @@ abstract class FmEventHandler
     
     $fm_context = new EventContext();
     $fm_action = fmGetVar('action');
-    $fm_forward = NULL;
     
     /*
     echo "getActionResults";
@@ -50,7 +49,8 @@ abstract class FmEventHandler
     if(!empty($fm_action))
     {
     	$fm_action_id = fmGetVar('action_id');
-
+    	$fm_forward = NULL;
+      
       //echo "Action: " . $fm_action. "<br/>";
       
     	if($this->shouldPerformAction($fm_action_id) == true)

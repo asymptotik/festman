@@ -314,7 +314,7 @@ echo "\n";
 
                 <div id="postdivrich">
                     <h3><label for="content"><?php echo esc_html($object_class_display_name) ?> Description</label></h3>
-                    <?php wp_editor( $program_item->getDescription(), "program_item_description", array( 'media_buttons' => false ) ); ?>
+                    <?php the_editor($program_item->getDescription(), "program_item_description", "program_item_url_text", false); ?>
                 </div>
 
                 <div class="collateraldiv">

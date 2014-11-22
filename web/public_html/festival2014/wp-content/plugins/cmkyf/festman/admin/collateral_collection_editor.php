@@ -241,7 +241,7 @@ if (isset($collateral_collection))
                             <br>
                         </div>
                         <h3 class="hndle">
-                            <span><?php echo __('Save'); ?></span>
+                            <span><?php echo sprintf(__('Save %s'), esc_html($object_class_display_name)); ?></span>
                         </h3>
                         <div class="inside">
                             <div id="submitlink" class="submitbox">
@@ -267,7 +267,7 @@ if (isset($collateral_collection))
                             <thead>
                                 <tr>
                                     <th scope='col' id='cb' class='manage-column column-cb sc-check-column'  style=""><input type="checkbox" /></th>
-                                    <th class="manage-column lc-column">Collateral Name</th>
+                                    <th class="manage-column lc-column">Location Name</th>
                                     <th class="manage-column lc-column">Collateral Count</th>
                                 </tr>
                             </thead>
@@ -326,7 +326,7 @@ if (isset($collateral_collection))
                                         {
                                         ?>
                                             <tr class="no-items">
-                                                <td class="colspanchange" colspan="2">No Collateral found.</td>
+                                                <td class="colspanchange" colspan="2">No Locations found.</td>
                                             </tr>
                                         <?php
                                         }
@@ -338,7 +338,7 @@ if (isset($collateral_collection))
                             <tfoot>
                                 <tr>
                                     <th scope='col' id='cb' class='manage-column column-cb sc-check-column'  style=""><input type="checkbox" /></th>
-                                    <th class="manage-column lc-column" style="" scope="col">Collateral Name</th>
+                                    <th class="manage-column lc-column" style="" scope="col">Location Name</th>
                                     <th class="manage-column lc-column" style="" scope="col">Collateral Count</th>
                                 </tr>
                             </tfoot>
@@ -451,7 +451,7 @@ if (isset($_SESSION['action_message']))
                             <div id="major-publishing-actions">
                                 <div id="publishing-action">
 
-                                    <button onclick="javascript:fmOnSubmitProgramItemForm();" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save">Submit <?php echo esc_html($collateral_collection_name); ?></button>
+                                    <button onclick="javascript:fmOnSubmitProgramItemForm();" id="publish" class="button-primary" accesskey="p" tabindex="4" name="save">Submit <?php echo esc_html($object_class_display_name); ?></button>
                                 </div>
                                 <div class="clear"></div>
                             </div>

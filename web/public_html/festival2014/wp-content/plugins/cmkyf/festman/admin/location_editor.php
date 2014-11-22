@@ -298,7 +298,7 @@ echo "\n";
 
                 <div id="postdivrich">
                     <h3><label for="content">Location Description</label></h3>
-                    <?php wp_editor( $location->getDescription(), "location_description", array( 'media_buttons' => false ) ); ?>
+                    <?php the_editor($location->getDescription(), "location_description", "location_zipcode", false); ?>
                 </div>
 
                 <div class="collateraldiv">

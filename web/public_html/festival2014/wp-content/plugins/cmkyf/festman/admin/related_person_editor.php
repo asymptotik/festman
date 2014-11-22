@@ -253,7 +253,7 @@ echo "\n";
 
                 <div id="postdivrich">
                     <h3><label for="content">Related Person Description</label></h3>
-                    <?php wp_editor( $related_person->getDescription(), "related_person_description", array( 'media_buttons' => false ) ); ?>
+                    <?php the_editor($related_person->getDescription(), "related_person_description", "program_item_url_text", false); ?>
                 </div>
 
                 <br/>

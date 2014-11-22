@@ -451,7 +451,7 @@ echo "\n";
 
                 <div id="postdivrich">
                     <h3><label for="content">Event Description</label></h3>
-                    <?php wp_editor( $event->getDescription(), "event_description", array( 'media_buttons' => false ) ); ?>
+                    <?php the_editor($event->getDescription(), "event_description", "event_end_time", false); ?>
                 </div>
                 
                 <div id="relateddiv" class="">
