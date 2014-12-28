@@ -712,46 +712,32 @@ function cmkyf_email_signup_e()
     echo '<div id="mc_embed_signup">';
     echo '<form action="http://communikey.us6.list-manage.com/subscribe/post?u=b1a1e43077ae717f80d89d6a0&amp;id=23d3d64842" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>';
     echo '  <div id="cmky_mailinglist">' . "\n";
-    echo '      <input type="text" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><input type="button" name="subscribe" id="mc-embedded-subscribe" value="ok" />';
+    echo '      <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><div style="position: absolute; left: -5000px;"><input type="text" name="b_b1a1e43077ae717f80d89d6a0_23d3d64842" tabindex="-1" value=""></div><input type="button" name="subscribe" id="mc-embedded-subscribe" value="ok" class="button" />';
     echo '  </div>' . "\n";
     echo '</form>';
     echo '</div>';
     echo '<!--End mc_embed_signup-->';
 
-    /*
-     * icontact
-     */
-    /*
-        echo '<form id="ccsfg" name="ccsfg" method="post" action="' . get_template_directory_uri() . '/ccontact/signup/index.php' . '">';
-    echo '  <div id="cmky_mailinglist">' . "\n";
-    echo '    <input type="text" name="EmailAddress" value="" id="EmailAddress" /><input type="button" name="signup" id="signup" value="ok" />';
-    echo '  </div>' . "\n";
-            //   <!-- ########## Contact Lists ########## -->
-    echo '    <input type="hidden"  checked="checked"  value="CMKY general" name="Lists[]" id="list_CMKY general" />';
-            //<!-- ########## Success / Failure Redirects ########## -->
-    echo '    <input type="hidden" name="SuccessURL" value="http://communikey.us/festival2012/connect/email-list-thanks" />';
-    echo '    <input type="hidden" name="FailureURL" value="http://communikey.us/festival2012/connect/email-list-error" />';
-    echo '</form>';
-    */
-    
-    
-    
-    /*
-     * php list
-    echo '<form method=post action="https://app.icontact.com/icp/signup.php" name="icpsignup" id="icpsignup554" accept-charset="UTF-8" >' . "\n";
-    echo '  <input type=hidden name=redirect value="http://www.communikey.us/festival2012/connect/email-list-thanks" />' . "\n";
-    echo '  <input type=hidden name=errorredirect value="http://www.communikey.us/festival2012/connect/email-list-error" />' . "\n";
-    echo '  <div id="cmky_mailinglist">' . "\n";
-    echo '    <input name="fields_email" type="text" id="ltxtMailingList" /><input type="button" onClick="$object_class = $item->getObjectClass();" name="subscribe" id="lbtnSubmit" value="ok" />' . "\n";
-    echo '  </div>' . "\n";
-    echo '  <input type=hidden name="listid" value="3888">' . "\n";
-    echo '  <input type=hidden name="specialid:3888" value="G7NV">' . "\n";
-    echo '  <input type=hidden name=clientid value="734261">' . "\n";
-    echo '  <input type=hidden name=formid value="554">' . "\n";
-    echo '  <input type=hidden name=reallistid value="1">' . "\n";
-    echo '  <input type=hidden name=doubleopt value="1">' . "\n";
-    echo '</form>' . "\n";
-     */
+/*
+ * <!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. 
+</style>
+<div id="mc_embed_signup">
+<form action="//communikey.us6.list-manage.com/subscribe/post?u=b1a1e43077ae717f80d89d6a0&amp;id=23d3d64842" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Subscribe to our mailing list</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;"><input type="text" name="b_b1a1e43077ae717f80d89d6a0_23d3d64842" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+ */
 }
 
 /**
