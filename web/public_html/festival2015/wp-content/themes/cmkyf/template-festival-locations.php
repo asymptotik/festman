@@ -40,8 +40,16 @@ $venues = Location::getAllLocations();
 $venueListControl = new VenueListControl($venues);
 ?>
 <div id="primary">
-    
-    <?php echo $venueListControl->render(); ?>
+
+    <?php 
+    	if (count($venues) > 0)
+        {
+    		echo $venueListControl->render(); 
+    	}
+    	else {
+    		echo '<div class="not-found">No Venues found.</div>';
+    	}
+    ?>
     
 </div><!-- #primary -->
 

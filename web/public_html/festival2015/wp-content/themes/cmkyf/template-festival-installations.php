@@ -36,12 +36,20 @@ require_once get_template_directory() . '/controls/ItemListControl.php';
 
 cmkyf_include('menu-festival.php');
 
-$acts = ProgramItem::getAllTypedProgramItems('Installation');
-$itemListControl = new ItemListControl($acts);
+$installations = ProgramItem::getAllTypedProgramItems('Installation');
+$itemListControl = new ItemListControl($installations);
 ?>
 <div id="primary">
     
-    <?php echo $itemListControl->render(); ?>
+    <?php 
+    	if (count($installations) > 0)
+        {
+    		echo $listControl->render(); 
+    	}
+    	else {
+    		echo '<div class="not-found">No Installations found.</div>';
+    	}
+    ?>
     
 </div><!-- #primary -->
 

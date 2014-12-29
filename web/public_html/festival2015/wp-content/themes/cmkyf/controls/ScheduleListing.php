@@ -23,10 +23,11 @@ require_once CMKYF_PLUGIN_BASE_DIR . '/library/utils.php';
 
 class ScheduleListing implements IControl
 {
+    private $events = NULL;
 
-    public function __construct()
+    public function __construct(array $events)
     {
-        
+        $this->events = $events;
     }
 
     public function render()
@@ -37,7 +38,7 @@ class ScheduleListing implements IControl
     private function getContent()
     {
         ob_start();
-        $events = Event::getAllEventsSortedByDate();
+        $events = $this->events;
 
         if (count($events) > 0)
         {

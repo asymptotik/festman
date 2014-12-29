@@ -36,12 +36,21 @@ require_once get_template_directory() . '/controls/ScheduleListing.php';
 
 cmkyf_include('menu-festival.php');
 
-$listControl = new ScheduleListing();
+$events = Event::getAllEventsSortedByDate();
+$listControl = new ScheduleListing($events);
 ?>
 <div id="primary">
     
-    <?php echo $listControl->render(); ?>
-    
+    <?php 
+    	if (count($events) > 0)
+        {
+    		echo $listControl->render(); 
+    	}
+    	else {
+    		echo '<div class="not-found">No Scheduled found.</div>';
+    	}
+    ?>
+
 </div><!-- #primary -->
 
 <?php get_footer(); ?>

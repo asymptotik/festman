@@ -36,13 +36,21 @@ require_once get_template_directory() . '/controls/ItemListControl.php';
 
 cmkyf_include('menu-festival.php');
 
-$acts = ProgramItem::getAllTypedProgramItems('Film');
-$itemListControl = new ItemListControl($acts);
+$films = ProgramItem::getAllTypedProgramItems('Film');
+$itemListControl = new ItemListControl($films);
 ?>
 <div id="primary">
     
-    <?php echo $itemListControl->render(); ?>
-    
+    <?php 
+    	if (count($films) > 0)
+        {
+    		echo $listControl->render(); 
+    	}
+    	else {
+    		echo '<div class="not-found">No Films found.</div>';
+    	}
+    ?>
+
 </div><!-- #primary -->
 
 <?php get_footer(); ?>

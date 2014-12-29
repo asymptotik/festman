@@ -41,7 +41,15 @@ $acts = ProgramItem::getAllTypedProgramItems('Act');
 $itemListControl = new ItemListControl($acts);
 ?>
 <div id="primary">
-    <?php echo $itemListControl->render(); ?>
+    <?php 
+    	if (count($acts) > 0)
+        {
+    		echo $itemListControl->render(); 
+    	}
+    	else {
+    		echo '<div class="not-found">No Acts found.</div>';
+    	}
+    ?>
 </div><!-- #primary -->
 
 <?php get_footer(); ?>

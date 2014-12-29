@@ -2724,6 +2724,12 @@ p.comment-form-comment {
     font-size: .9em;
 }
 
+.not-found {
+    margin: 3px auto 20px;
+    text-align: center;
+    font-size: .9em;
+}
+
 /* =Responsive Structure
 ----------------------------------------------- */
 

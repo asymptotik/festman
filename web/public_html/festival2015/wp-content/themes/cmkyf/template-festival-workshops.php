@@ -36,13 +36,21 @@ require_once get_template_directory() . '/controls/ItemListControl.php';
 
 cmkyf_include('menu-festival.php');
 
-$acts = ProgramItem::getAllTypedProgramItems('Workshop');
-$itemListControl = new ItemListControl($acts);
+$workshops = ProgramItem::getAllTypedProgramItems('Workshop');
+$itemListControl = new ItemListControl($workshops);
 ?>
 <div id="primary">
-    
-    <?php echo $itemListControl->render(); ?>
-    
+
+    <?php 
+    	if (count($workshops) > 0)
+        {
+    		echo $itemListControl->render(); 
+    	}
+    	else {
+    		echo '<div class="not-found">No Workshops found.</div>';
+    	}
+    ?>
+
 </div><!-- #primary -->
 
 <?php get_footer(); ?>

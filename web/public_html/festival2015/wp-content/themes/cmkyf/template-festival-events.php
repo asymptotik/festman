@@ -41,7 +41,15 @@ $listControl = new EventListControl($events);
 ?>
 <div id="primary">
     
-    <?php echo $listControl->render(); ?>
+    <?php 
+    	if (count($events) > 0)
+        {
+    		echo $listControl->render(); 
+    	}
+    	else {
+    		echo '<div class="not-found">No Events found.</div>';
+    	}
+    ?>
     
 </div><!-- #primary -->
 
