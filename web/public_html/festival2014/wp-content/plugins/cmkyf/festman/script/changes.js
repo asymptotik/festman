@@ -18,17 +18,19 @@ function fmOnDataChanged()
         var lastClicked = false, checks, first, last, checked;
 
         $('select').change(fmOnDataChanged);
-        $('input:text, textarea').keypress(fmOnDataChanged);
+        $('input:text, textarea').on("propertychange change keyup paste input", fmOnDataChanged);
         $('input:checkbox, input:radio').click(fmOnDataChanged);
 
-        $(window).bind('beforeunload', function() {
+        $(window).bind('beforeunload', function(event) {
+
             if (fm_hasChanged && !fm_ignoreChanges) {
-                return 'Changes have been made. Are you sure you want to leave the page?';
+                var message = 'Changes have been made. Are you sure you want to leave the page?';
+                (event || window.event).returnValue = message; //Gecko + IE
+                return message;                                //Gecko + Webkit, Safari, Chrome etc.
             } else {
-                return null;
-            }
+                event.preventDefault();
+            }                            
         });
-        
         
         // check all checkboxes
         $('tbody').children().children('.sc-check-column').find(':checkbox').click( function(e) {

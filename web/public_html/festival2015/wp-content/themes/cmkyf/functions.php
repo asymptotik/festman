@@ -151,7 +151,7 @@ if (!function_exists('cmkyf_setup')):
         // Default custom headers packaged with the theme. %s is a placeholder for the theme template directory URI.
         register_default_headers(array(
             'festival_01' => array(
-                'url' => '%s/images/headers/CMKY_WEBSITEK_BANNER_2014_1.jpg',
+                'url' => '%s/images/headers/CMKY_2015_WEBSITE_PAGE_1.png',
                 'thumbnail_url' => '%s/images/headers/CMY_NYE_WEB_BANNER_123112_1-240x86.jpg',
                 /* translators: header image description */
                 'description' => __('Festival 2014 One', 'twentyeleven'),
@@ -159,7 +159,7 @@ if (!function_exists('cmkyf_setup')):
             ),
             
             'festival_02' => array(
-                'url' => '%s/images/headers/CMKY_WEBSITEK_BANNER_2014_2_1.png',
+                'url' => '%s/images/headers/CMKY_2015_WEBSITE_PAGE_2.png',
                 'thumbnail_url' => '%s/images/headers/CMY_NYE_WEB_BANNER_123112_1-240x86.jpg',
                 /* translators: header image description */
                 'description' => __('Festival 2014 Two', 'twentyeleven'),
@@ -167,19 +167,11 @@ if (!function_exists('cmkyf_setup')):
             ),
             
             'festival_03' => array(
-                'url' => '%s/images/headers/CMKY_WEBSITEK_BANNER_2014_3_6.png',
+                'url' => '%s/images/headers/CMKY_2015_WEBSITE_PAGE_3.png',
                 'thumbnail_url' => '%s/images/headers/CMY_NYE_WEB_BANNER_123112_1-240x86.jpg',
                 /* translators: header image description */
                 'description' => __('Festival 2014 Three', 'twentyeleven'),
                 'action' => 'http://cmky.org/festival2014/festival/'
-            ),
-            
-            'festival_04' => array(
-                'url' => '%s/images/headers/CMKY_10year_web_banner.jpg',
-                'thumbnail_url' => '%s/images/headers/CMY_NYE_WEB_BANNER_123112_1-240x86.jpg',
-                //translators: header image description
-                'description' => __('CMKY 10 Year Aniversary', 'twentyeleven'),
-                'action' => 'http://cmky.org/festival2014/home/home-spot-two/'
             ),
             /*
             'festival_03' => array(
